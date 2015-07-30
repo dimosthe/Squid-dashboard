@@ -1,11 +1,14 @@
 <?php
 use yii\helpers\Html;
 use app\assets\AppAsset;
+use app\assets\CustomAsset;
+use yii\helpers\Url;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 
 AppAsset::register($this);
+CustomAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -55,7 +58,7 @@ AppAsset::register($this);
                                         <li><!-- start message -->
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                                                    <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
                                                 </div>
                                                 <h4>
                                                     Support Team
@@ -124,13 +127,13 @@ AppAsset::register($this);
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="img/user2-160x160.jpg" class="user-image" alt="User Image" />
+                                <img src="/img/user2-160x160.jpg" class="user-image" alt="User Image" />
                                 <span class="hidden-xs">Alexander Pierce</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                                    <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
                                     <p>
                                         Alexander Pierce - Web Developer
                                         <small>Member since Nov. 2012</small>
@@ -173,7 +176,7 @@ AppAsset::register($this);
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                        <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
                     </div>
                     <div class="pull-left info">
                         <p>Alexander Pierce</p>
@@ -185,21 +188,19 @@ AppAsset::register($this);
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
                     <li>
-                        <a href="#">
+                        <a href="<?= Yii::$app->homeUrl; ?>">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-files-o"></i>
-                            <span>Option 1</span>
-                            <span class="label label-primary pull-right">4</span>
+                            <i class="fa fa-user"></i>
+                            <span>Users</span>
+                            <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="../layout/top-nav.html"><i class="fa fa-circle-o"></i> Option 1.1</a></li>
-                            <li><a href="../layout/boxed.html"><i class="fa fa-circle-o"></i> Option 1.2</a></li>
-                            <li><a href="../layout/fixed.html"><i class="fa fa-circle-o"></i> Option 1.3</a></li>
-                            <li><a href="../layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Option 1.4</a></li>
+                            <li><a href="<?= Url::to(['/user/admin/index']); ?>"><i class="fa fa-circle-o"></i> Manage Users</a></li>
+                            <li><a href="<?= Url::to(['/user/admin/create']); ?>"><i class="fa fa-circle-o"></i> Create User</a></li>
                         </ul>
                     </li>
                     <li>

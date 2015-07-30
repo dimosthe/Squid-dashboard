@@ -12,6 +12,11 @@ return [
     'controllerNamespace' => 'app\commands',
     'modules' => [
         'gii' => 'yii\gii\Module',
+        
+            'user' => [
+                'class' => 'dektrium\user\Module',
+            ],
+
     ],
     'components' => [
         'cache' => [
@@ -26,6 +31,10 @@ return [
             ],
         ],
         'db' => $db,
+        'user' => [
+            'identityClass' => 'dektrium\user\models\User',
+            'class' => 'dektrium\user\Module',
+        ],
     ],
     'params' => $params,
 ];
