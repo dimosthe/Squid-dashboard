@@ -19,12 +19,9 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        /*'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
-        ],*/
         'user' => [
             'identityClass' => 'app\models\User',
+            'enableAutoLogin' => true, // enable cookie-based login
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -57,10 +54,15 @@ $config = [
     'modules' => [
         'user' => [
             'class' => 'dektrium\user\Module',
+            'enableUnconfirmedLogin' => false,
+            'enableRegistration' => false,
             'admins' => ['admin'],
             'modelMap' => [
                 'User' => 'app\models\User',
             ],
+            'controllerMap' => [
+                'security' => 'app\controllers\SecurityController',
+            ]
         ],
     ],
     'params' => $params,

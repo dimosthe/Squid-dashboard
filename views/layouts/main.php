@@ -128,14 +128,14 @@ CustomAsset::register($this);
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="/img/user2-160x160.jpg" class="user-image" alt="User Image" />
-                                <span class="hidden-xs">Alexander Pierce</span>
+                                <span class="hidden-xs"><?= Yii::$app->user->identity->username; ?> </span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
                                     <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
                                     <p>
-                                        Alexander Pierce - Web Developer
+                                        <?= \Yii::$app->session->get('user.name'); ?> 
                                         <small>Member since Nov. 2012</small>
                                     </p>
                                 </li>
@@ -157,7 +157,7 @@ CustomAsset::register($this);
                                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="<?= Url::to(['/site/logout']); ?>" data-method="post" class="btn btn-default btn-flat">Sign out</a>
                                     </div>
                                 </li>
                             </ul>
@@ -179,7 +179,7 @@ CustomAsset::register($this);
                         <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
                     </div>
                     <div class="pull-left info">
-                        <p>Alexander Pierce</p>
+                        <p><?= Yii::$app->user->identity->username; ?> </p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>

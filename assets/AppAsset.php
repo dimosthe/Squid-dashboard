@@ -28,8 +28,9 @@ class AppAsset extends AssetBundle
     ];*/
 
     public $sourcePath = '@vendor/almasaeed2010/';
-    public $css = ['adminlte/dist/css/AdminLTE.min.css', 'adminlte/dist/css/skins/skin-blue.css'];
-    public $js = ['adminlte/dist/js/app.js', 'adminlte/plugins/slimScroll/jquery.slimscroll.min.js', 'adminlte/plugins/fastclick/fastclick.min.js'];
+    public $css = ['adminlte/dist/css/AdminLTE.min.css', 'adminlte/dist/css/skins/skin-blue.css', 'adminlte/plugins/iCheck/square/blue.css'];
+    public $js = ['adminlte/dist/js/app.js', 'adminlte/plugins/slimScroll/jquery.slimscroll.min.js', 
+        'adminlte/plugins/fastclick/fastclick.min.js', 'adminlte/plugins/iCheck/icheck.min.js'];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',

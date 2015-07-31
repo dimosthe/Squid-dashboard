@@ -40,7 +40,7 @@ $this->title = Yii::t('user', 'Manage users'); ?>
     	'module' => Yii::$app->getModule('user'),
 	]) ?>
 
-	<?= $this->render('_menu') ?>
+	<?= $this->render('@dektrium/user/views/admin/_menu') ?>
 	
 	<?php Pjax::begin() ?>
 

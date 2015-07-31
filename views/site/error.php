@@ -5,13 +5,17 @@ use yii\helpers\Html;
 /* @var $message string */
 /* @var $exception Exception */
 $this->title = $name;
+
+$this->context->layout = Yii::$app->user->isGuest? 'noheader' : 'main'; 
 ?>
 <section class="content-header">
     <h1><?= Html::encode($this->title) ?></h1>
+    <?php if(!Yii::$app->user->isGuest): ?>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active"><?= $exception->statusCode ?> error</li>
     </ol>
+    <?php endif; ?>
 </section>
 <section class="content">
     <div class="error-page">
