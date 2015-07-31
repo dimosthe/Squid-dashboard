@@ -24,7 +24,7 @@ $config = [
             'enableAutoLogin' => true,
         ],*/
         'user' => [
-            'identityClass' => 'dektrium\user\models\User',
+            'identityClass' => 'app\models\User',
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -57,7 +57,10 @@ $config = [
     'modules' => [
         'user' => [
             'class' => 'dektrium\user\Module',
-            'admins' => ['admin']
+            'admins' => ['admin'],
+            'modelMap' => [
+                'User' => 'app\models\User',
+            ],
         ],
     ],
     'params' => $params,
