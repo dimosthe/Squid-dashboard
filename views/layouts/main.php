@@ -136,25 +136,13 @@ CustomAsset::register($this);
                                     <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
                                     <p>
                                         <?= \Yii::$app->session->get('user.name'); ?> 
-                                        <small>Member since Nov. 2012</small>
+                                        <small><?= Yii::t('user', 'Member since {0, date}', Yii::$app->user->identity->created_at); ?></small>
                                     </p>
-                                </li>
-                                <!-- Menu Body -->
-                                <li class="user-body">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="<?= Url::to(['/user/profile/index']); ?>" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="<?= Url::to(['/site/logout']); ?>" data-method="post" class="btn btn-default btn-flat">Sign out</a>

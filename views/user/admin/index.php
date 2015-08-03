@@ -11,11 +11,13 @@
 
 use dektrium\user\models\UserSearch;
 use yii\data\ActiveDataProvider;
-use yii\grid\GridView;
+//use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\jui\DatePicker;
 use yii\web\View;
 use yii\widgets\Pjax;
+use yii\helpers\Url;
+use kartik\grid\GridView;
 
 /**
  * @var View $this
@@ -42,11 +44,20 @@ $this->title = Yii::t('user', 'Manage users'); ?>
 
 	<?= $this->render('@dektrium/user/views/admin/_menu') ?>
 	
-	<?php Pjax::begin() ?>
+	<?php //Pjax::begin() ?>
 
 	<?= GridView::widget([
 	    'dataProvider' => $dataProvider,
 	    'filterModel'  => $searchModel,
+	    'export' => false,
+		'pjax'=> true,
+		'pjaxSettings'=>[
+			'neverTimeout'=>true,
+			'options' => ['enablePushState' => false],
+		],
+		'responsive' => true,
+		'headerRowOptions'=>['class'=>'kartik-sheet-style'],
+
 	    'layout'  => "{items}\n{pager}",
 	    'columns' => [
 	        'username',
@@ -110,12 +121,32 @@ $this->title = Yii::t('user', 'Manage users'); ?>
 	            'format' => 'raw',
 	        ],
 	        [
-	            'class' => 'yii\grid\ActionColumn',
-	            'template' => '{update} {delete}',
-	        ],
+				'class' => 'yii\grid\ActionColumn',
+				'template' => '{view} {update} {delete}',
+				'buttons' => [
+					'view' => function ($url, $model) {
+						return Html::a('<i class="glyphicon glyphicon-eye-open"></i>', Url::to(['/user/profile/show', 'id'=>$model->id]), [
+							'class' => 'btn btn-xs btn-success',
+							'title' => Yii::t('yii', 'View'),
+						]);
+					},
+					'update' => function ($url, $model) {
+						return Html::a('<i class="glyphicon glyphicon-wrench"></i>', $url, [
+							'class' => 'btn btn-xs btn-info',
+							'title' => Yii::t('yii', 'Update'),
+						]);
+					},
+					'delete' => function ($url, $model) {
+						return Html::a('<i class="glyphicon glyphicon-trash"></i>', $url, [
+							'class' => 'btn btn-xs btn-danger',
+							'data-method' => 'post',
+							'data-confirm' => Yii::t('user', 'Are you sure to delete this user?'),
+							'title' => Yii::t('yii', 'Delete'),
+						]);
+					},
+				]
+			],
 	    ],
 	]); ?>
-
-	<?php Pjax::end() ?>
 
 </section>
