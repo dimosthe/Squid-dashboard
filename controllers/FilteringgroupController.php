@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\DelayGroup;
-use app\models\DealyGroupSearch;
+use app\models\FilteringGroup;
+use app\models\FilteringGroupSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DealyGroupController implements the CRUD actions for DelayGroup model.
+ * FilteringGroupController implements the CRUD actions for FilteringGroup model.
  */
-class DealyGroupController extends Controller
+class FilteringgroupController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class DealyGroupController extends Controller
     }
 
     /**
-     * Lists all DelayGroup models.
+     * Lists all FilteringGroup models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new DealyGroupSearch();
+        $searchModel = new FilteringGroupSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class DealyGroupController extends Controller
     }
 
     /**
-     * Displays a single DelayGroup model.
+     * Displays a single FilteringGroup model.
      * @param integer $id
      * @return mixed
      */
@@ -54,13 +54,13 @@ class DealyGroupController extends Controller
     }
 
     /**
-     * Creates a new DelayGroup model.
+     * Creates a new FilteringGroup model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new DelayGroup();
+        $model = new FilteringGroup();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,7 +72,7 @@ class DealyGroupController extends Controller
     }
 
     /**
-     * Updates an existing DelayGroup model.
+     * Updates an existing FilteringGroup model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +91,7 @@ class DealyGroupController extends Controller
     }
 
     /**
-     * Deletes an existing DelayGroup model.
+     * Deletes an existing FilteringGroup model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +104,15 @@ class DealyGroupController extends Controller
     }
 
     /**
-     * Finds the DelayGroup model based on its primary key value.
+     * Finds the FilteringGroup model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return DelayGroup the loaded model
+     * @return FilteringGroup the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = DelayGroup::findOne($id)) !== null) {
+        if (($model = FilteringGroup::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

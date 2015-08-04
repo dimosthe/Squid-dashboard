@@ -1,5 +1,6 @@
 <?php
 use yii\base\View;
+use app\helpers\Squid;
 /* @var $this yii\web\View */
 $this->title = 'PXaaS vNF | Dashboard'; ?>
 
@@ -18,7 +19,9 @@ $this->title = 'PXaaS vNF | Dashboard'; ?>
 
 <!-- Main content -->
 <section class="content">
-Start here
+
+<?= Squid::network_access(); ?>
+
 
 
 </section><!-- /.content -->

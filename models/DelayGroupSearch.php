@@ -10,7 +10,7 @@ use app\models\DelayGroup;
 /**
  * DealyGroupSearch represents the model behind the search form about `app\models\DelayGroup`.
  */
-class DealyGroupSearch extends DelayGroup
+class DelayGroupSearch extends DelayGroup
 {
     /**
      * @inheritdoc
