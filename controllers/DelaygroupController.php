@@ -8,6 +8,7 @@ use app\models\DelayGroupSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * DelayGroupController implements the CRUD actions for DelayGroup model.
@@ -17,6 +18,17 @@ class DelaygroupController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -69,7 +81,7 @@ class DelaygroupController extends Controller
         } 
         else 
         {
-            $model->bandwidth = 0; 
+            //$model->bandwidth = 0; 
             return $this->render('create', [
                 'model' => $model,
             ]);

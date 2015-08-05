@@ -20,7 +20,7 @@ $this->title = 'PXaaS vNF | Dashboard'; ?>
 <!-- Main content -->
 <section class="content">
 
-<?= Squid::network_access(); ?>
+main content
 
 
 

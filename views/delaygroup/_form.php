@@ -14,6 +14,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+    <?php 
+    	 $model->bandwidth = $model->bandwidth? $model->bandwidth : 0;
+    ?>
+
     <?= $form->field($model, 'bandwidth')->radioList([0=>" Unlimited", 1=>" Custom"], ['separator'=>'</br>']) ?>
 
     <?php if($model->bandwidth): ?>

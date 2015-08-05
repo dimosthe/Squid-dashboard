@@ -31,10 +31,19 @@ class DelayGroup extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'rate'], 'required'],
+            [['name'], 'required'],
+            [['name'], 'unique'],
             [['rate'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['bandwidth'], 'safe'],
+            [['bandwidth'], function ($attr) {
+                if($this->bandwidth == 1)
+                    if($this->rate < 0)
+                        $this->addError('rate', 'Rate must be greater than zero');
+                    if(empty($this->rate))
+                        $this->addError('rate', 'Rate cannot be blank');
+                },
+            ],
         ];
     }
 
@@ -57,5 +66,18 @@ class DelayGroup extends \yii\db\ActiveRecord
     public function getUsers()
     {
         return $this->hasMany(User::className(), ['delay_group_id' => 'id']);
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert))
+        {
+            if($this->bandwidth == 0)
+                $this->rate = -1;
+
+            return true;
+        }
+        else
+            return false;
     }
 }
