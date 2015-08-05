@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\DealyGroupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Delay Groups';
+$this->title = 'Bandwidth Restriction Groups';
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -20,7 +20,11 @@ $this->title = 'Delay Groups';
 <br />
 <!-- Main content -->
 <section class="content">
-    
+     <?php if (Yii::$app->getSession()->hasFlash('success')): ?>
+        <div class="alert alert-success">
+            <p><?= Yii::$app->getSession()->getFlash('success') ?></p>
+        </div>
+    <?php endif; ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -40,7 +44,7 @@ $this->title = 'Delay Groups';
             '{toggleData}',
         ],
         'panel'=>[
-            'type'=>GridView::TYPE_SUCCESS,
+            'type'=>GridView::TYPE_PRIMARY,
             'heading'=>$this->title
         ],
 
@@ -55,15 +59,17 @@ $this->title = 'Delay Groups';
                 'template' => '{view} {update} {delete}',
                 'buttons' => [
                     'view' => function ($url, $model) {
-                        return Html::a('<i class="glyphicon glyphicon-eye-open"></i>', Url::to(['/user/profile/show', 'id'=>$model->id]), [
+                        return Html::a('<i class="glyphicon glyphicon-eye-open"></i>', $url, [
                             'class' => 'btn btn-xs btn-success',
                             'title' => Yii::t('yii', 'View'),
+                            'data-pjax'=>0
                         ]);
                     },
                     'update' => function ($url, $model) {
                         return Html::a('<i class="glyphicon glyphicon-wrench"></i>', $url, [
                             'class' => 'btn btn-xs btn-info',
                             'title' => Yii::t('yii', 'Update'),
+                            'data-pjax'=>0
                         ]);
                     },
                     'delete' => function ($url, $model) {
@@ -72,6 +78,7 @@ $this->title = 'Delay Groups';
                             'data-method' => 'post',
                             'data-confirm' => Yii::t('user', 'Are you sure to delete this user?'),
                             'title' => Yii::t('yii', 'Delete'),
+                            'data-pjax'=>0
                         ]);
                     },
                 ]

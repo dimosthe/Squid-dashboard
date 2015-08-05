@@ -2,29 +2,36 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\DelayGroup */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Delay Groups', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="delay-group-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
+<section class="content-header">
+    <h1><?= Html::encode($this->title) ?> <?= Html::a('Update Group', ['/delaygroup/update','id'=>$model->id], ['class' => 'btn btn-success btn-xs'])?>
+         <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger btn-xs',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => Yii::t('app', 'Are you sure you want to delete this group?'),
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="<?= Yii::$app->homeUrl; ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?= Url::to(['/delaygroup/index']); ?>">Bandwidth Restriction Groups</a></li>
+        <li class="active"><?= Html::encode($this->title); ?></li>
+    </ol>
+</section>
 
+<section class="content">
+    <?php if (Yii::$app->getSession()->hasFlash('success')): ?>
+        <div class="alert alert-success">
+            <p><?= Yii::$app->getSession()->getFlash('success') ?></p>
+        </div>
+    <?php endif; ?>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -34,4 +41,4 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-</div>
+</section>

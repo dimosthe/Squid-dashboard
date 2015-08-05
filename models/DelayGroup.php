@@ -15,6 +15,8 @@ use Yii;
  */
 class DelayGroup extends \yii\db\ActiveRecord
 {
+    public $bandwidth;
+
     /**
      * @inheritdoc
      */
@@ -31,7 +33,8 @@ class DelayGroup extends \yii\db\ActiveRecord
         return [
             [['name', 'rate'], 'required'],
             [['rate'], 'integer'],
-            [['name'], 'string', 'max' => 255]
+            [['name'], 'string', 'max' => 255],
+            [['bandwidth'], 'safe'],
         ];
     }
 
@@ -44,6 +47,7 @@ class DelayGroup extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'rate' => 'Rate',
+            'bandwidth' => 'Bandwidth Rate'
         ];
     }
 

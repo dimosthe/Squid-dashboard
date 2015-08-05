@@ -62,9 +62,14 @@ class DelaygroupController extends Controller
     {
         $model = new DelayGroup();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) 
+        {
+            Yii::$app->getSession()->setFlash('success', 'Group has been successfully created');
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        } 
+        else 
+        {
+            $model->bandwidth = 0; 
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -81,9 +86,13 @@ class DelaygroupController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) 
+        {
+            Yii::$app->getSession()->setFlash('success', 'Group has been successfully updated');
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        } 
+        else 
+        {
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -99,6 +108,7 @@ class DelaygroupController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        Yii::$app->getSession()->setFlash('success', 'Group has been successfully deleted');
 
         return $this->redirect(['index']);
     }

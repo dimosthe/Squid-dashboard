@@ -18,7 +18,7 @@ CustomAsset::register($this);
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
     <?php $this->head() ?>
 </head>
@@ -191,10 +191,16 @@ CustomAsset::register($this);
                             <li><a href="<?= Url::to(['/user/admin/create']); ?>"><i class="fa fa-circle-o"></i> Create User</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="../widgets.html">
-                            <i class="fa fa-th"></i> <span>Option 2</span> <small class="label pull-right bg-green">Hot</small>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-internet-explorer"></i>
+                            <span>Network Access</span>
+                            <i class="fa fa-angle-left pull-right"></i>
                         </a>
+                        <ul class="treeview-menu">
+                            <li><a href="<?= Url::to(['/delaygroup/index']); ?>"><i class="fa fa-circle-o"></i> Bandwidth Restriction Groups</a></li>
+                            <li><a href="<?= Url::to(['/delaygroup/create']); ?>"><i class="fa fa-circle-o"></i> Create Group</a></li>
+                        </ul>
                     </li>
                     <li class="treeview">
                         <a href="#">
