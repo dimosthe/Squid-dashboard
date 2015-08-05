@@ -16,6 +16,7 @@ use Yii;
 class DelayGroup extends \yii\db\ActiveRecord
 {
     public $bandwidth;
+    public $users;
 
     /**
      * @inheritdoc
@@ -35,13 +36,13 @@ class DelayGroup extends \yii\db\ActiveRecord
             [['name'], 'unique'],
             [['rate'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['bandwidth'], 'safe'],
+            [['bandwidth', 'users'], 'safe'],
             [['bandwidth'], function ($attr) {
                 if($this->bandwidth == 1)
+                    if(empty($this->rate))
+                        $this->addError('rate', 'Rate cannot be blank or 0');
                     if($this->rate < 0)
                         $this->addError('rate', 'Rate must be greater than zero');
-                    if(empty($this->rate))
-                        $this->addError('rate', 'Rate cannot be blank');
                 },
             ],
         ];
@@ -55,7 +56,7 @@ class DelayGroup extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'rate' => 'Rate',
+            'rate' => 'Rate (KBits/s)',
             'bandwidth' => 'Bandwidth Rate'
         ];
     }

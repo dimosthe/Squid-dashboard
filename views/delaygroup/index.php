@@ -52,9 +52,13 @@ $this->title = 'Bandwidth Restriction Groups';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'name',
-            'rate',
-
-             [
+            [
+                'attribute' => 'rate',
+                'value' => function ($model, $key, $index, $widget) {
+                    return ($model->rate == -1)? "unlimited" : $model->rate;
+                }
+            ],
+            [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete}',
                 'buttons' => [
@@ -76,7 +80,7 @@ $this->title = 'Bandwidth Restriction Groups';
                         return Html::a('<i class="glyphicon glyphicon-trash"></i>', $url, [
                             'class' => 'btn btn-xs btn-danger',
                             'data-method' => 'post',
-                            'data-confirm' => Yii::t('user', 'Are you sure to delete this user?'),
+                            'data-confirm' => Yii::t('user', 'Are you sure to delete this group?'),
                             'title' => Yii::t('yii', 'Delete'),
                             'data-pjax'=>0
                         ]);

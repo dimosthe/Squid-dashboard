@@ -23,6 +23,7 @@ $this->title = 'Create Group';
  		<div class="box-header with-border">
     		<?= $this->render('_form', [
         		'model' => $model,
+        		'users' => $users
     		]) ?>
     	</div>
     </div>

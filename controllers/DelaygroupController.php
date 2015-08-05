@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\DelayGroup;
 use app\models\DelayGroupSearch;
+use app\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -74,16 +75,35 @@ class DelaygroupController extends Controller
     {
         $model = new DelayGroup();
 
+        $users = User::find()->select(['id', 'username'])->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) 
         {
+            if(!empty($model->users)) 
+            {
+                $us = explode(',', $model->users);
+                foreach ($us as $user)
+                {
+                    $u = User::findOne((int)$user);
+
+                    if($u !== NULL)
+                    {
+                        $u->delay_group_id = $model->id;
+                        $u->scenario ='create';
+                        $u->save();
+                    }
+
+                }
+            }
+
             Yii::$app->getSession()->setFlash('success', 'Group has been successfully created');
             return $this->redirect(['view', 'id' => $model->id]);
         } 
         else 
         {
-            //$model->bandwidth = 0; 
             return $this->render('create', [
                 'model' => $model,
+                'users' => $users
             ]);
         }
     }

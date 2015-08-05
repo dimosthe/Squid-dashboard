@@ -35,9 +35,11 @@ $this->title = $model->name;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'name',
-            'rate',
+            [
+                'label' => 'Rate (KBits/s)',
+                'value' => $model->rate == -1? "unlimited" : $model->rate
+            ],
         ],
     ]) ?>
 
