@@ -4,7 +4,7 @@ $(document).ready(function() {
     $('input[type="radio"]').iCheck({
     	radioClass: 'iradio_minimal-blue'
     });
-
+    
 	$('input').on('ifChecked', function(event){
 		if($(this).attr('name') == 'DelayGroup[bandwidth]')
 		{

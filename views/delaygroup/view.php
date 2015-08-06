@@ -40,7 +40,10 @@ $this->title = $model->name;
                 'label' => 'Rate (KBits/s)',
                 'value' => $model->rate == -1? "unlimited" : $model->rate
             ],
+            [
+                'label' => 'Joined Users',
+                'value' => $users
+            ],
         ],
     ]) ?>
-
 </section>

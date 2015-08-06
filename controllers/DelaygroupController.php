@@ -61,8 +61,18 @@ class DelaygroupController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        // get joined users
+        $users = $model->users;
+
+        $temp = [];
+        foreach ($model->users as $user) 
+            array_push($temp, $user->username);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'users' => implode(', ', $temp) // return users' usernames as a string
         ]);
     }
 
@@ -75,16 +85,16 @@ class DelaygroupController extends Controller
     {
         $model = new DelayGroup();
 
-        $users = User::find()->select(['id', 'username'])->all();
+        $users = User::find()->select(['id', 'username', 'delay_group_id'])->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) 
         {
-            if(!empty($model->users)) 
+            if(!empty($model->users_input)) 
             {
-                $us = explode(',', $model->users);
-                foreach ($us as $user)
+                $array = explode(',', $model->users_input);
+                foreach ($array as $user_id)
                 {
-                    $u = User::findOne((int)$user);
+                    $u = User::findOne((int)$user_id);
 
                     if($u !== NULL)
                     {
@@ -92,7 +102,6 @@ class DelaygroupController extends Controller
                         $u->scenario ='create';
                         $u->save();
                     }
-
                 }
             }
 
@@ -118,8 +127,50 @@ class DelaygroupController extends Controller
     {
         $model = $this->findModel($id);
 
+        // get selected users
+        $selected_users = $model->users; 
+        $sel_users_array = [];
+        foreach ($selected_users as $user) {
+            array_push($sel_users_array, $user->id);
+        }
+
+        // get un-selected users
+        $users = User::find() 
+            ->where(['not in', 'id', $sel_users_array])
+            ->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) 
         {
+            $array = explode(',', $model->users_input);
+            foreach ($array as $user_id)
+            {
+                $key = array_search($user_id, $sel_users_array);
+                if($key !== false)
+                    unset($sel_users_array[$key]);
+                else
+                {
+                    $u = User::findOne((int)$user_id);
+
+                    if($u !== NULL)
+                    {
+                        $u->delay_group_id = $model->id;
+                        $u->scenario ='create';
+                        $u->save();
+                    }
+                }
+            }
+            foreach ($sel_users_array as $id)
+            {
+                $u = User::findOne((int)$id);
+
+                if($u !== NULL)
+                {
+                    $u->delay_group_id = NULL;
+                    $u->scenario ='create';
+                    $u->save();
+                }
+            }
+
             Yii::$app->getSession()->setFlash('success', 'Group has been successfully updated');
             return $this->redirect(['view', 'id' => $model->id]);
         } 
@@ -127,6 +178,8 @@ class DelaygroupController extends Controller
         {
             return $this->render('update', [
                 'model' => $model,
+                'users' => $users,
+                'selected_users' => $selected_users
             ]);
         }
     }

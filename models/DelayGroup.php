@@ -16,7 +16,7 @@ use Yii;
 class DelayGroup extends \yii\db\ActiveRecord
 {
     public $bandwidth;
-    public $users;
+    public $users_input;
 
     /**
      * @inheritdoc
@@ -36,7 +36,7 @@ class DelayGroup extends \yii\db\ActiveRecord
             [['name'], 'unique'],
             [['rate'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['bandwidth', 'users'], 'safe'],
+            [['bandwidth', 'users_input'], 'safe'],
             [['bandwidth'], function ($attr) {
                 if($this->bandwidth == 1)
                     if(empty($this->rate))

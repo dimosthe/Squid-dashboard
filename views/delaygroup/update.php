@@ -20,6 +20,8 @@ $this->title = 'Update Group';
  		<div class="box-header with-border">
     		<?= $this->render('_form', [
         		'model' => $model,
+        		'users' => $users,
+        		'selected_users' => $selected_users
     		]) ?>
 
 		</div>
