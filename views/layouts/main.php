@@ -205,14 +205,12 @@ CustomAsset::register($this);
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-pie-chart"></i>
-                            <span>Option 3</span>
+                            <span>Website Filtering</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="../charts/chartjs.html"><i class="fa fa-circle-o"></i> Option 3.1</a></li>
-                            <li><a href="../charts/morris.html"><i class="fa fa-circle-o"></i> Option 3.2</a></li>
-                            <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> Option 3.3</a></li>
-                            <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Option 3.4</a></li>
+                            <li><a href="<?= Url::to(['/filteringgroup/index']); ?>"><i class="fa fa-circle-o"></i> Website Filtering Groups</a></li>
+                            <li><a href="<?= Url::to(['/filteringgroup/create']); ?>"><i class="fa fa-circle-o"></i> Create Group</a></li>
                         </ul>
                     </li>
                     <li class="treeview">

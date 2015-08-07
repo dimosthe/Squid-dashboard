@@ -97,7 +97,7 @@ class DelaygroupController extends Controller
                 }
             }
 
-            Yii::$app->getSession()->setFlash('success', 'Group has been successfully created');
+            Yii::$app->getSession()->setFlash('DGsuccess', 'Group has been successfully created');
             return $this->redirect(['view', 'id' => $model->id]);
         } 
         else 
@@ -163,7 +163,7 @@ class DelaygroupController extends Controller
                 }
             }
 
-            Yii::$app->getSession()->setFlash('success', 'Group has been successfully updated');
+            Yii::$app->getSession()->setFlash('DGsuccess', 'Group has been successfully updated');
             return $this->redirect(['view', 'id' => $model->id]);
         } 
         else 
@@ -185,7 +185,7 @@ class DelaygroupController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-        Yii::$app->getSession()->setFlash('success', 'Group has been successfully deleted');
+        Yii::$app->getSession()->setFlash('DGsuccess', 'Group has been successfully deleted');
 
         return $this->redirect(['index']);
     }

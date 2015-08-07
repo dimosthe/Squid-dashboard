@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\base\Object;
+use app\models\Blacklist;
+use app\models\Blacklistsfilteringgroup;
 
 /**
  * This is the model class for table "filtering_group".
@@ -19,6 +22,9 @@ class FilteringGroup extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+	public $users_input;
+	public $users_input_bl;
+	
     public static function tableName()
     {
         return 'filtering_group';
@@ -31,7 +37,8 @@ class FilteringGroup extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['name', 'comment'], 'string', 'max' => 255]
+            [['name', 'comment'], 'string', 'max' => 255],
+        	[['users_input_bl', 'users_input'], 'safe'],
         ];
     }
 
@@ -61,5 +68,30 @@ class FilteringGroup extends \yii\db\ActiveRecord
     public function getUsers()
     {
         return $this->hasMany(User::className(), ['filtering_group_id' => 'id']);
+    }
+    
+    /**
+     * Returns the users for this group as a comma separated string
+     */
+    public function getUsersString()
+    {
+    	$users = [];
+    	foreach ($this->users as $user)
+    		array_push($users, $user->username);
+    
+    	return implode(', ', $users);
+    }
+    
+    /**
+     * Returns the blacklists for this group as a comma separated string
+     */
+    public function getBlacklistsString()
+    {
+    	$bl_names = [];
+    	foreach ($this->blacklistsFilteringGroups as $blid){
+    		$result = Blacklist::find()->where(['id' => (int)$blid->blacklist_id])->one();
+    		array_push($bl_names, $result->name);
+    	}
+    	return implode(', ', $bl_names);
     }
 }

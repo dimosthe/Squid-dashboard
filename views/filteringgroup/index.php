@@ -1,35 +1,102 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\FilteringGroupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Filtering Groups';
+$this->title = 'Website Filtering Groups';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <ol class="breadcrumb">
+        <li><a href="<?= Yii::$app->homeUrl; ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active"><?= Html::encode($this->title); ?></li>
+    </ol>
+</section>
+<br />
 <div class="filtering-group-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php if (Yii::$app->getSession()->hasFlash('FGsuccess')): ?>
+        <div class="alert alert-success">
+            <p><?= Yii::$app->getSession()->getFlash('FGsuccess') ?></p>
+        </div>
+    <?php endif; ?>
 
-    <p>
-        <?= Html::a('Create Filtering Group', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'export' => false,
+        'pjax'=> true,
+        'pjaxSettings'=>[
+            'neverTimeout'=>true,
+            'options' => ['enablePushState' => false],
+        ],
+        'responsive' => true,
+        'headerRowOptions'=>['class'=>'kartik-sheet-style'],
+        'toolbar'=> [
+            ['content'=>
+                Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'], ['data-pjax'=>0, 'class' => 'btn btn-success']).' '.
+                Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['index'], ['data-pjax'=>0, 'class'=>'btn btn-default', 'title'=>'Reset Table'])
+            ],
+            '{toggleData}',
+        ],
+        'panel'=>[
+            'type'=>GridView::TYPE_PRIMARY,
+            'heading'=>$this->title
+        ],
+
+        'layout'  => "{items}\n{pager}",
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'name',
-            'comment',
-
-            ['class' => 'yii\grid\ActionColumn'],
+			[
+                'header' => 'Users',
+                'value' => function ($model, $key, $index, $widget) {
+                    return $model->getUsersString();
+                },
+            ],
+            [
+            'header' => 'Blocked Content',
+            'value' => function ($model, $key, $index, $widget) {
+            	return $model->getBlacklistsString();
+            },
+            ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete}',
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return Html::a('<i class="glyphicon glyphicon-eye-open"></i>', $url, [
+                            'class' => 'btn btn-xs btn-success',
+                            'title' => Yii::t('yii', 'View'),
+                            'data-pjax'=>0
+                        ]);
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<i class="glyphicon glyphicon-wrench"></i>', $url, [
+                            'class' => 'btn btn-xs btn-info',
+                            'title' => Yii::t('yii', 'Update'),
+                            'data-pjax'=>0
+                        ]);
+                    },
+                    'delete' => function ($url, $model) {
+                        return Html::a('<i class="glyphicon glyphicon-trash"></i>', $url, [
+                            'class' => 'btn btn-xs btn-danger',
+                            'data-method' => 'post',
+                            'data-confirm' => Yii::t('user', 'Are you sure to delete this group?'),
+                            'title' => Yii::t('yii', 'Delete'),
+                            'data-pjax'=>0
+                        ]);
+                    },
+                ]
+            ],
         ],
     ]); ?>
 

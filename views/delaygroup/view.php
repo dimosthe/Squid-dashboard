@@ -27,9 +27,9 @@ $this->title = $model->name;
 </section>
 
 <section class="content">
-    <?php if (Yii::$app->getSession()->hasFlash('success')): ?>
+    <?php if (Yii::$app->getSession()->hasFlash('DGsuccess')): ?>
         <div class="alert alert-success">
-            <p><?= Yii::$app->getSession()->getFlash('success') ?></p>
+            <p><?= Yii::$app->getSession()->getFlash('DGsuccess') ?></p>
         </div>
     <?php endif; ?>
     <?= DetailView::widget([
