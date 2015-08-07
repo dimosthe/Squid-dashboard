@@ -58,7 +58,7 @@ use kartik\sortinput\SortableInput;
 					'name'=>'all-users',
 					'id' => 'sortable1',
 					'items' => $temp,
-					'hideInput' => false,
+					'hideInput' => true,
 					'sortableOptions' => [
 						'connected'=>true,	
 						'itemOptions'=>['role'=>'option', 'aria-grabbed' =>'false', 'draggable' =>'true'],
@@ -70,15 +70,11 @@ use kartik\sortinput\SortableInput;
 			<div class="col-sm-6">
 				<strong>Selected Users</strong></br></br>
 				<?php
-				echo $form->field($model, 'users_input')->begin();
-				echo Html::error($model,'users_input', ['class' => 'help-block']);
-				echo $form->field($model, 'users_input')->end();
-				
 				echo SortableInput::widget([
 					'name'=>'DelayGroup[users_input]',
 					'id' => 'sortable2',
 					'items' => $model->isNewRecord? []: $temp1,
-					'hideInput' => false,
+					'hideInput' => true,
 					'sortableOptions' => [
 						'itemOptions'=>['class'=>'alert alert-warning', 'role'=>'option', 'aria-grabbed' =>'false', 'draggable' =>'true'],
 						'connected'=>true,

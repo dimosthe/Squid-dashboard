@@ -63,16 +63,8 @@ class DelaygroupController extends Controller
     {
         $model = $this->findModel($id);
 
-        // get joined users
-        $users = $model->users;
-
-        $temp = [];
-        foreach ($model->users as $user) 
-            array_push($temp, $user->username);
-
         return $this->render('view', [
             'model' => $model,
-            'users' => implode(', ', $temp) // return users' usernames as a string
         ]);
     }
 

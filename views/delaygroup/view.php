@@ -42,7 +42,7 @@ $this->title = $model->name;
             ],
             [
                 'label' => 'Joined Users',
-                'value' => $users
+                'value' => $model->getUsersString()//$users
             ],
         ],
     ]) ?>

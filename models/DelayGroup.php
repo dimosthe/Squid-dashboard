@@ -55,7 +55,7 @@ class DelayGroup extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Group Name',
             'rate' => 'Rate (KBits/s)',
             'bandwidth' => 'Bandwidth Rate'
         ];
@@ -80,5 +80,17 @@ class DelayGroup extends \yii\db\ActiveRecord
         }
         else
             return false;
+    }
+
+    /**
+     * Returns the users for this group as a comma separated string
+     */
+    public function getUsersString()
+    {
+        $users = [];
+        foreach ($this->users as $user) 
+            array_push($users, $user->username);
+
+        return implode(', ', $users);
     }
 }

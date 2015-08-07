@@ -59,6 +59,12 @@ $this->title = 'Bandwidth Restriction Groups';
                 }
             ],
             [
+                'header' => 'Users',
+                'value' => function ($model, $key, $index, $widget) {
+                    return $model->getUsersString();
+                },
+            ],
+            [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete}',
                 'buttons' => [
