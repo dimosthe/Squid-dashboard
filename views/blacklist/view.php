@@ -2,36 +2,31 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Blacklist */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Blacklists', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="blacklist-view">
+<section class="content-header">
+    <ol class="breadcrumb">
+        <li><a href="<?= Yii::$app->homeUrl; ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?= Url::to(['/blacklistgroup/index']); ?>">Website Filtering Groups</a></li>
+        <li class="active"><?= Html::encode($this->title); ?></li>
+    </ol>
+</section>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
+<section class="content">
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'name',
-            'comments',
+            [
+                'label' => 'Blocked Urls',
+                'value' => $model->getBlacklistURL()
+            ],
+//         'formatter' => asText(),
         ],
     ]) ?>
-
-</div>
+</section>

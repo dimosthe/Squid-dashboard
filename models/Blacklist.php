@@ -53,4 +53,12 @@ class Blacklist extends \yii\db\ActiveRecord
     {
         return $this->hasMany(BlacklistsFilteringGroup::className(), ['blacklist_id' => 'id']);
     }
+    
+    public function getBlacklistURL(){
+    	$path = "/etc/squidguard/blacklists/".$this->name.'/urls';
+    	$urls = file($path) or die("Unable to open file!");
+//     	$urls =  fread($myfile,filesize($path));
+//     	fclose($myfile);
+    	return implode(' ',$urls);
+    }
 }

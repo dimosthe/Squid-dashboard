@@ -9,7 +9,6 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Website Filtering Groups';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -19,9 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </ol>
 </section>
 <br />
-<div class="filtering-group-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<section class="content">
     <?php if (Yii::$app->getSession()->hasFlash('FGsuccess')): ?>
         <div class="alert alert-success">
             <p><?= Yii::$app->getSession()->getFlash('FGsuccess') ?></p>
@@ -99,5 +96,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
-</div>
+</section>
