@@ -2,6 +2,7 @@
 
 namespace app\helpers;
 use yii\helpers\Html; 
+use app\models\DelayGroup;
 
 /**
  * Helper for editting Squid's configuration file
@@ -10,23 +11,67 @@ use yii\helpers\Html;
 
 class Squid
 {
-	const SQUID_CONF = '/etc/squid/squid.conf.test';
+	const SQUID_CONF = '/etc/squid/squid.conf'; // Squid's configuration file path
 
 	public static function network_access()
 	{
 	
-		$file = file_get_contents(Squid::SQUID_CONF);
+		$groups = DelayGroup::find()->with('users')->all();
 
-		$start = "# ACL LIST";
-		$end = "# ACL LIST END";
+		$acl_string = "";
+		$access_string = "";
+		foreach ($groups as $group)
+		{
+			if(!empty($group->users))
+			{
+				$acl_string .= "acl " . $group->name . " proxy_auth ";
+				$access_string .= "http_access allow ". $group->name . "\n";
+			
+				$users = [];
+				foreach($group->users as $user)
+					array_push($users, $user->username);	
+
+				$acl_string .= implode(' ', $users);
+				$acl_string .= " REQUIRED" . "\n";
+			}
+		}
+
+		if(Squid::write("# ACL LIST", "# ACL LIST END", $acl_string) === false)
+			return false;
+		
+		if(Squid::write("# ACCESS CONTROL", "# ACCESS CONTROL END", $access_string) === false)
+			return false;
+
+		
+		return true;
+	}
+
+	/**
+	 * Writes configuration to Squid confifuration file. 
+	 * @param string $start 
+	 * @param string $end
+	 * @param string $conf
+	 * @return boolean
+	 */
+	public static function write($start, $end, $conf)
+	{
+		$file = @file_get_contents(Squid::SQUID_CONF);
+
+		if($file === false)
+			return false;
+
 		$pos_start = strpos($file, $start);
 		$pos_end = strpos($file, $end);
+
+		if($pos_start === false || $pos_end === false)
+			return false;
 		
 		$a = substr($file, 0, $pos_start + strlen($start));
 		$b = substr($file, $pos_end);
 
-		$test = file_put_contents(Squid::SQUID_CONF, $a."\n"."acl users proxy_auth george REQUIRED" . "\n" ."acl admins proxy_auth admin ". "\n" .$b);
+		if(file_put_contents(Squid::SQUID_CONF, $a."\n". $conf . "\n" .$b) === false)
+			return false;
 
-		return $test;
+		return true;
 	}
 }

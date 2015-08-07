@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\helpers\Squid;
 
 class SiteController extends Controller
 {
@@ -16,10 +17,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'index'],
+                'only' => ['logout', 'index', 'reloadconf'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'reloadconf'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -29,6 +30,7 @@ class SiteController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
+                    'reloadconf' => ['post']
                 ],
             ],
         ];
@@ -50,6 +52,18 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionReloadconf()
+    {
+        $status = Squid::network_access();
+
+        if($status)
+            Yii::$app->getSession()->setFlash('reload_message', 'Proxy has been successfully reloaded');
+        else
+            Yii::$app->getSession()->setFlash('reload_message', 'Something went wrong'); 
+
+        return $this->redirect('index');
     }
 
     public function actionLogout()
