@@ -5,10 +5,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model app\models\FilteringGroup */
 
-$this->title = 'Update Filtering Group: ' . ' ' . $model->name;
-// $this->params['breadcrumbs'][] = ['label' => 'Filtering Groups', 'url' => ['index']];
-// $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-// $this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Update Filtering Group';
 ?>
 <section class="content-header">
 	<h1><?= Html::encode($this->title) ?> <?= Html::a('Show Group', ['/filteringgroup/view','id'=>$model->id], ['class' => 'btn btn-success btn-xs']) ?></h1>

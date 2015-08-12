@@ -10,9 +10,10 @@ use yii\helpers\Url;
 $this->title = $model->name;
 ?>
 <section class="content-header">
+    <h1><?= Html::encode($this->title) ?></h1>
     <ol class="breadcrumb">
         <li><a href="<?= Yii::$app->homeUrl; ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="<?= Url::to(['/blacklistgroup/index']); ?>">Website Filtering Groups</a></li>
+        <li><a href="<?= Url::to(['/blacklist/index']); ?>">Blacklists</a></li>
         <li class="active"><?= Html::encode($this->title); ?></li>
     </ol>
 </section>
@@ -24,9 +25,9 @@ $this->title = $model->name;
             'name',
             [
                 'label' => 'Blocked Urls',
-                'value' => $model->getBlacklistURL()
+                'value' => $model->getBlacklistURL(),
+                'format' => 'html',
             ],
-//         'formatter' => asText(),
         ],
     ]) ?>
 </section>

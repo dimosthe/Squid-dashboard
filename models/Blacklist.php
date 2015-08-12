@@ -59,6 +59,6 @@ class Blacklist extends \yii\db\ActiveRecord
     	$urls = file($path) or die("Unable to open file!");
 //     	$urls =  fread($myfile,filesize($path));
 //     	fclose($myfile);
-    	return implode(' ',$urls);
+    	return implode(', ',$urls);
     }
 }

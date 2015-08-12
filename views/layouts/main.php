@@ -187,8 +187,8 @@ CustomAsset::register($this);
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="<?= Url::to(['/user/admin/index']); ?>"><i class="fa fa-circle-o"></i> Manage Users</a></li>
-                            <li><a href="<?= Url::to(['/user/admin/create']); ?>"><i class="fa fa-circle-o"></i> Create User</a></li>
+                            <li><a href="<?= Url::to(['/user/admin/index']); ?>"><i class="fa fa-circle-o text-red"></i> Manage Users</a></li>
+                            <li><a href="<?= Url::to(['/user/admin/create']); ?>"><i class="fa fa-circle-o text-yellow"></i> Create User</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -198,8 +198,8 @@ CustomAsset::register($this);
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="<?= Url::to(['/delaygroup/index']); ?>"><i class="fa fa-circle-o"></i> Bandwidth Restriction Groups</a></li>
-                            <li><a href="<?= Url::to(['/delaygroup/create']); ?>"><i class="fa fa-circle-o"></i> Create Group</a></li>
+                            <li><a href="<?= Url::to(['/delaygroup/index']); ?>"><i class="fa fa-circle-o text-red"></i> Bandwidth Restriction Groups</a></li>
+                            <li><a href="<?= Url::to(['/delaygroup/create']); ?>"><i class="fa fa-circle-o text-yellow"></i> Create Group</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
