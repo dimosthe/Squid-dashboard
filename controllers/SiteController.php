@@ -17,10 +17,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'index', 'reloadconf'],
+                'only' => ['logout', 'index', 'reloadsquid', 'startsquid', 'stopsquid'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'index', 'reloadconf'],
+                        'actions' => ['logout', 'index', 'reloadsquid', 'startsquid', 'stopsquid'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -30,7 +30,9 @@ class SiteController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
-                    'reloadconf' => ['post']
+                    'reloadsquid' => ['post'],
+                    'startsquid' => ['post'],
+                    'stopsquid' => ['post']
                 ],
             ],
         ];
@@ -54,15 +56,44 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
-    public function actionReloadconf()
+    public function actionReloadsquid()
     {
-        $status = Squid::network_access();
+        $status = Squid::writeconfig();
 
-        if($status)
-            Yii::$app->getSession()->setFlash('reload_message', 'Proxy has been successfully reloaded');
-        else
-            Yii::$app->getSession()->setFlash('reload_message', 'Something went wrong'); 
+        if(!$status)
+        {
+            Yii::$app->getSession()->setFlash('reload_message', 'Unable to write to configuration file'); 
+            return $this->redirect('index');
+        }
 
+        $status = Squid::restart();
+
+        Yii::$app->getSession()->setFlash('reload_message', $status); 
+        return $this->redirect('index');
+    }
+
+    public function actionStartsquid()
+    {
+        $status = Squid::writeconfig();
+
+        if(!$status)
+        {
+            Yii::$app->getSession()->setFlash('reload_message', 'Unable to write to configuration file'); 
+            return $this->redirect('index');
+        }
+
+        $status = Squid::start();
+
+        Yii::$app->getSession()->setFlash('reload_message', $status); 
+        return $this->redirect('index');
+    }
+
+    public function actionStopsquid()
+    {
+
+        $status = Squid::stop();
+
+        Yii::$app->getSession()->setFlash('reload_message', $status); 
         return $this->redirect('index');
     }
 

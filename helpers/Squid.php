@@ -13,7 +13,10 @@ class Squid
 {
 	const SQUID_CONF = '/etc/squid/squid.conf'; // Squid's configuration file path
 
-	public static function network_access()
+	/**
+	 * Reads configuration data from DB and writes it to Squid's configuration file
+	 */
+	public static function writeconfig()
 	{
 	
 		$groups = DelayGroup::find()->with('users')->all();
@@ -47,13 +50,46 @@ class Squid
 	}
 
 	/**
+	 * Starts Squid server
+	 * @return string
+	 */
+	public static function start()
+	{
+		$status = shell_exec('sudo service squid start');
+
+		return $status;
+	}
+
+	/**
+	 * Stops Squid server
+	 * @return string
+	 */
+	public static function stop()
+	{
+		$status = shell_exec('sudo service squid stop');
+
+		return $status;
+	}
+
+	/**
+	 * Restarts Squid server
+	 * @return string
+	 */
+	public static function restart()
+	{
+		$status = shell_exec('sudo service squid restart');
+
+		return $status;
+	}
+
+	/**
 	 * Writes configuration to Squid confifuration file. 
 	 * @param string $start 
 	 * @param string $end
 	 * @param string $conf
 	 * @return boolean
 	 */
-	public static function write($start, $end, $conf)
+	private static function write($start, $end, $conf)
 	{
 		$file = @file_get_contents(Squid::SQUID_CONF);
 
