@@ -28,6 +28,11 @@ $this->title = 'Blacklists';
             'neverTimeout'=>true,
             'options' => ['enablePushState' => false],
         ],
+         'pager' => [
+            'firstPageLabel' => 'First',
+            'lastPageLabel' => 'Last',
+            'maxButtonCount' =>10
+        ],
         'responsive' => true,
         'headerRowOptions'=>['class'=>'kartik-sheet-style'],
         'toolbar'=> [
