@@ -55,10 +55,10 @@ class Blacklist extends \yii\db\ActiveRecord
     }
     
     public function getBlacklistURL(){
-    	$path = "/etc/squidguard/blacklists/".$this->name.'/urls';
+    	$path = "/etc/squidguard/blacklists/".$this->name.'/domains';
     	$urls = file($path) or die("Unable to open file!");
 //     	$urls =  fread($myfile,filesize($path));
 //     	fclose($myfile);
-    	return implode(', ',$urls);
+    	return implode('<br/> ',$urls);
     }
 }
