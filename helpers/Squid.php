@@ -23,19 +23,31 @@ class Squid
 
 		$acl_string = "";
 		$access_string = "";
+		$count = count($groups);
+
+		if($count > 0)
+			$delay_string = "delay_pools " . $count . "\n";
+		
+		$count = 1;
 		foreach ($groups as $group)
 		{
 			if(!empty($group->users))
 			{
 				$acl_string .= "acl " . $group->name . " proxy_auth ";
 				$access_string .= "http_access allow ". $group->name . "\n";
-			
+				
+				$rate = $group->rate == -1 ? -1 : $group->rate*1000/8;
+				$delay_string .= "delay_class " . $count . " 1 \n";
+				$delay_string .= "delay_parameters " . $count . " " . $rate . "/" . $rate . "\n";
+				$delay_string .= "delay_access " . $count . " allow " . $group->name . "\n";
+
 				$users = [];
 				foreach($group->users as $user)
 					array_push($users, $user->username);	
 
 				$acl_string .= implode(' ', $users);
 				$acl_string .= " REQUIRED" . "\n";
+				$count++;
 			}
 		}
 
@@ -43,6 +55,9 @@ class Squid
 			return false;
 		
 		if(Squid::write("# ACCESS CONTROL", "# ACCESS CONTROL END", $access_string) === false)
+			return false;
+
+		if(Squid::write("# DELAY POOLS", "# DELAY POOLS END", $delay_string) === false)
 			return false;
 
 		
