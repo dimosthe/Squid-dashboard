@@ -193,7 +193,7 @@ CustomAsset::register($this);
                     </li>
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-internet-explorer"></i>
+                            <i class="fa fa-firefox"></i>
                             <span>Network Access</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
@@ -204,7 +204,7 @@ CustomAsset::register($this);
                     </li>
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-pie-chart"></i>
+                            <i class="fa fa-filter"></i>
                             <span>Website Filtering</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
@@ -215,7 +215,7 @@ CustomAsset::register($this);
                     </li>
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-laptop"></i>
+                            <i class="fa fa-list"></i>
                             <span>Blacklist Options</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
@@ -223,7 +223,27 @@ CustomAsset::register($this);
                             <li><a href="<?= Url::to(['/blacklist/index']); ?>"><i class="fa fa-circle-o text-red"></i> View Blacklists</a></li>
                         </ul>
                     </li>
-               
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-files-o"></i>
+                            <span>Web Caching</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-circle-o text-red"></i> Preferences</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-user-secret"></i>
+                            <span>User Anonymity</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-circle-o text-red"></i> Preferences</a></li>
+                        </ul>
+                    </li>
+
                     <li class="header">LABELS</li>
                     <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
                     <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
