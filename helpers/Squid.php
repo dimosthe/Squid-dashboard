@@ -3,6 +3,7 @@
 namespace app\helpers;
 use yii\helpers\Html; 
 use app\models\DelayGroup;
+use app\models\User;
 
 /**
  * Helper for editting Squid's configuration file
@@ -50,6 +51,17 @@ class Squid
 				$count++;
 			}
 		}
+
+		$users = User::find()->where(['anonymous' => 0])->all();
+
+		$users_list = "";
+		foreach ($users as $user) 
+		{
+			$users_list .= $user->username . " ";
+		}
+
+		if(!empty($users_list))
+			$acl_string .= "acl named proxy_auth " . $users_list;
 
 		if(Squid::write("# ACL LIST", "# ACL LIST END", $acl_string) === false)
 			return false;
@@ -104,9 +116,9 @@ class Squid
 	 * @param string $conf
 	 * @return boolean
 	 */
-	private static function write($start, $end, $conf)
+	private static function write($start, $end, $conf, $file = Squid::SQUID_CONF)
 	{
-		$file = @file_get_contents(Squid::SQUID_CONF);
+		$file = @file_get_contents($file);
 
 		if($file === false)
 			return false;
