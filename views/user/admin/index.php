@@ -128,12 +128,14 @@ $this->title = Yii::t('user', 'Manage users'); ?>
 						return Html::a('<i class="glyphicon glyphicon-eye-open"></i>', Url::to(['/user/profile/show', 'id'=>$model->id]), [
 							'class' => 'btn btn-xs btn-success',
 							'title' => Yii::t('yii', 'View'),
+							'data-pjax'=>0
 						]);
 					},
 					'update' => function ($url, $model) {
 						return Html::a('<i class="glyphicon glyphicon-wrench"></i>', $url, [
 							'class' => 'btn btn-xs btn-info',
 							'title' => Yii::t('yii', 'Update'),
+							'data-pjax'=>0
 						]);
 					},
 					'delete' => function ($url, $model) {
@@ -142,6 +144,7 @@ $this->title = Yii::t('user', 'Manage users'); ?>
 							'data-method' => 'post',
 							'data-confirm' => Yii::t('user', 'Are you sure to delete this user?'),
 							'title' => Yii::t('yii', 'Delete'),
+							'data-pjax'=>0
 						]);
 					},
 				]

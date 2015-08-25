@@ -38,26 +38,10 @@ class User extends BaseUser
     /** @inheritdoc */
     public function rules()
     {
-       return [
-            // username rules
-            'usernameRequired' => ['username', 'required', 'on' => ['register', 'connect', 'create', 'update']],
-            'usernameMatch' => ['username', 'match', 'pattern' => '/^[-a-zA-Z0-9_\.@]+$/'],
-            'usernameLength' => ['username', 'string', 'min' => 3, 'max' => 25],
-            'usernameUnique' => ['username', 'unique'],
-            'usernameTrim' => ['username', 'trim'],
+        $rules = parent::rules();
 
-            // email rules
-            'emailRequired' => ['email', 'required', 'on' => ['register', 'connect', 'create', 'update']],
-            'emailPattern' => ['email', 'email'],
-            'emailLength' => ['email', 'string', 'max' => 255],
-            'emailUnique' => ['email', 'unique'],
-            'emailTrim' => ['email', 'trim'],
-
-            // password rules
-            'passwordRequired' => ['password', 'required', 'on' => ['register']],
-            'passwordLength' => ['password', 'string', 'min' => 6, 'on' => ['register', 'create']],
-            'anonymousSafe' => ['anonymous', 'integer', 'on' => ['create', 'update']]
-        ];
+        $rules["anonymousSafe"] = ['anonymous', 'integer', 'on' => ['create', 'update']];
+        return $rules;
     }
 
     public function scenarios()
