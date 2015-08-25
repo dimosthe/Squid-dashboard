@@ -81,7 +81,7 @@ $this->title = Yii::t('user', 'Create a user account');
                         ],
                     ]); ?>
 
-                    <?= $this->render('@dektrium/user/views/admin/_user', ['form' => $form, 'user' => $user]) ?>
+                    <?= $this->render('_user', ['form' => $form, 'user' => $user]) ?>
 
                     <div class="form-group">
                         <div class="col-lg-offset-3 col-lg-9">
