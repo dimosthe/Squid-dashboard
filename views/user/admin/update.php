@@ -104,7 +104,7 @@ $this->title = Yii::t('user', 'Update user account');
         <div class="col-md-9">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <?= $content ?>
+                    <?= $content?>
                 </div>
             </div>
         </div>

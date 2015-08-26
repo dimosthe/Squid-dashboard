@@ -99,6 +99,6 @@ use kartik\sortinput\SortableInput;
 </div>
 
  <?php 
- 	$this->registerJsFile(Yii::$app->request->baseUrl.'/scripts/hide.js',['depends' => [\yii\web\JqueryAsset::className()]]);
+ 	
  	$this->registerJsFile(Yii::$app->request->baseUrl.'/scripts/draggable.js',['depends' => [\yii\web\JqueryAsset::className()]]); 
 ?>

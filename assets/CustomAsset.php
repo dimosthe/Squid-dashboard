@@ -17,7 +17,8 @@ public $basePath = '@webroot';
 	public $css = ['css/site.css'
 	];
 	public $js = [
-		'scripts/makeactive.js'
+		'scripts/makeactive.js',
+		'scripts/hide.js'
 	];
 	public $depends = [
 		'yii\web\YiiAsset',

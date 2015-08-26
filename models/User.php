@@ -26,4 +26,30 @@ class User extends BaseUser
 
         return parent::beforeSave($insert);
     }
+
+    /** @inheritdoc */
+    public function attributeLabels()
+    {
+        $labels = parent::attributeLabels();
+
+        return $labels['anonymous'] = 'Anonymous Access';
+    }
+
+    /** @inheritdoc */
+    public function rules()
+    {
+        $rules = parent::rules();
+
+        $rules["anonymousSafe"] = ['anonymous', 'integer', 'on' => ['create', 'update']];
+        return $rules;
+    }
+
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+
+        $scenarios['create'] = ['username', 'email', 'password', 'anonymous'];
+        $scenarios['update'] = ['username', 'email', 'password', 'anonymous'];
+        return $scenarios;
+    }
 }
