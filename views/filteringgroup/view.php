@@ -39,7 +39,8 @@ $this->title = $model->name;
             'name',
         	[
 	        	'label' => 'Blocked Content',
-	        	'value' =>  $model->getBlacklistsString()
+	        	'value' =>  $model->getBlacklistsString(),
+        		'format' => 'html',
         	],
             [
                 'label' => 'Joined Users',

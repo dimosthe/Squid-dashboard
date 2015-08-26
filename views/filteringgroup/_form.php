@@ -16,8 +16,9 @@ use kartik\sortinput\SortableInput;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
     <?php 
 	    $bl = [];
+// 	    print_r(array_values($blists));
 	    foreach ($blists as $blist) {
-	    	$bl[$blist['id']] = $blist['name'];
+	    	$bl[$blist['id']] = Html::a($blist['name'],['/blacklist/view', 'id' => (int)$blist['id']],['data-pjax'=>0,]);
 	    }
 	    /*
 	     * If selected_bls does not exist then request came from create and no blacklists are selected.
@@ -31,9 +32,8 @@ use kartik\sortinput\SortableInput;
     ?>
     
     
-    <?= 
-    
-    $form->field($model, 'users_input_bl')->checkboxList($bl, ['separator'=>'</br>']); 
+    <?=
+		$form->field($model, 'users_input_bl')->checkboxList($bl, ['separator'=>'</br>','encode'=>False]);
     ?>
     
     <div class="alert alert-info">

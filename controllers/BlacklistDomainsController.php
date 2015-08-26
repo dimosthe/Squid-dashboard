@@ -3,18 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Blacklist;
-use app\models\BlacklistSearch;
+use app\models\BlacklistDomains;
 use app\models\BlacklistDomainsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\base\Object;
 
 /**
- * BlacklistController implements the CRUD actions for Blacklist model.
+ * BlacklistDomainsController implements the CRUD actions for BlacklistDomains model.
  */
-class BlacklistController extends Controller
+class BlacklistDomainsController extends Controller
 {
     public function behaviors()
     {
@@ -29,12 +27,12 @@ class BlacklistController extends Controller
     }
 
     /**
-     * Lists all Blacklist models.
+     * Lists all BlacklistDomains models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new BlacklistSearch();
+        $searchModel = new BlacklistDomainsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -44,30 +42,25 @@ class BlacklistController extends Controller
     }
 
     /**
-     * Displays a single Blacklist model.
+     * Displays a single BlacklistDomains model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-    	$model = $this->findModel($id);
-    	$searchModel = new BlacklistDomainsSearch();
-    	$dataProvider = $searchModel->search(Yii::$app->request->queryParams,$model->id);
         return $this->render('view', [
-            'model' => $model,
-        	'searchModel' => $searchModel,
-        	'dataProvider' => $dataProvider,
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Blacklist model.
+     * Creates a new BlacklistDomains model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Blacklist();
+        $model = new BlacklistDomains();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -79,7 +72,7 @@ class BlacklistController extends Controller
     }
 
     /**
-     * Updates an existing Blacklist model.
+     * Updates an existing BlacklistDomains model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,7 +91,7 @@ class BlacklistController extends Controller
     }
 
     /**
-     * Deletes an existing Blacklist model.
+     * Deletes an existing BlacklistDomains model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -111,15 +104,15 @@ class BlacklistController extends Controller
     }
 
     /**
-     * Finds the Blacklist model based on its primary key value.
+     * Finds the BlacklistDomains model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Blacklist the loaded model
+     * @return BlacklistDomains the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Blacklist::findOne($id)) !== null) {
+        if (($model = BlacklistDomains::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -64,6 +64,7 @@ $this->title = 'Website Filtering Groups';
             'value' => function ($model, $key, $index, $widget) {
             	return $model->getBlacklistsString();
             },
+            'format'=>'html',
             ],
             [
                 'class' => 'yii\grid\ActionColumn',

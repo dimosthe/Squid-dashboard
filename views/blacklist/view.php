@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\Url;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Blacklist */
@@ -19,15 +20,45 @@ $this->title = $model->name;
 </section>
 
 <section class="content">
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'name',
-            [
-                'label' => 'Blocked Urls',
-                'value' => $model->getBlacklistURL(),
-                'format' => 'html',
-            ],
+    <?php // DetailView::widget([
+//         'model' => $model,
+//         'attributes' => [
+//             'name',
+//             [
+//                 'label' => 'Blocked Urls',
+//                 'value' => $model->getBlacklistURL(),
+//                 'format' => 'html',
+//             ],
+//         ],
+//     ]) ?>
+        <?php echo GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'export' => false,
+        'pjax'=> true,
+        'pjaxSettings'=>[
+            'neverTimeout'=>true,
+            'options' => ['enablePushState' => false],
         ],
-    ]) ?>
+         'pager' => [
+            'firstPageLabel' => 'First',
+            'lastPageLabel' => 'Last',
+            'maxButtonCount' =>10
+        ],
+        'responsive' => true,
+        'headerRowOptions'=>['class'=>'kartik-sheet-style'],
+        'toolbar'=> [
+            '{toggleData}',
+        ],
+        'panel'=>[
+            'type'=>GridView::TYPE_PRIMARY,
+            'heading'=>$this->title
+        ],
+        'layout'  => "{items}\n{pager}",
+        		'columns' => [
+        					['class' => 'yii\grid\SerialColumn'],
+        					'domain',
+        				],
+        
+    ]); ?>
 </section>

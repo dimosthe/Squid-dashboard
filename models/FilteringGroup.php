@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Object;
 use app\models\Blacklist;
 use app\models\Blacklistsfilteringgroup;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "filtering_group".
@@ -51,6 +52,7 @@ class FilteringGroup extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'comment' => 'Comment',
+        	'users_input_bl' => 'Content Categories'
         ];
     }
 
@@ -90,7 +92,7 @@ class FilteringGroup extends \yii\db\ActiveRecord
     	$bl_names = [];
     	foreach ($this->blacklistsFilteringGroups as $blid){
     		$result = Blacklist::find()->where(['id' => (int)$blid->blacklist_id])->one();
-    		array_push($bl_names, $result->name);
+    		array_push($bl_names,Html::a($result->name,['/blacklist/view', 'id' => (int)$blid->blacklist_id],['data-pjax'=>0,]));
     	}
     	return implode(', ', $bl_names);
     }

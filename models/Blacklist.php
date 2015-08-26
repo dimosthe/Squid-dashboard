@@ -54,6 +54,14 @@ class Blacklist extends \yii\db\ActiveRecord
         return $this->hasMany(BlacklistsFilteringGroup::className(), ['blacklist_id' => 'id']);
     }
     
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBlacklistDomains()
+    {
+    	return $this->hasMany(BlacklistDomains::className(), ['blacklist_id' => 'id']);
+    }
+    
     public function getBlacklistURL(){
     	$path = "/etc/squidguard/blacklists/".$this->name.'/domains';
     	$data = nl2br(file_get_contents($path)) or die("Unable to open file!");
