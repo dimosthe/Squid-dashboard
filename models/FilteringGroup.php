@@ -85,6 +85,18 @@ class FilteringGroup extends \yii\db\ActiveRecord
     }
     
     /**
+     * Returns the users for this group as a comma separated string
+     */
+    public function getUsersStringSpaced()
+    {
+    	$users = [];
+    	foreach ($this->users as $user)
+    		array_push($users, $user->username);
+    
+    	return implode(' ', $users);
+    }
+    
+    /**
      * Returns the blacklists for this group as a comma separated string
      */
     public function getBlacklistsString()
@@ -95,5 +107,18 @@ class FilteringGroup extends \yii\db\ActiveRecord
     		array_push($bl_names,Html::a($result->name,['/blacklist/view', 'id' => (int)$blid->blacklist_id],['data-pjax'=>0,]));
     	}
     	return implode(', ', $bl_names);
+    }
+    
+    /**
+     * Returns the blacklists for this group as a comma separated string
+     */
+    public function getBlacklistsNames()
+    {
+    	$bl_names = [];
+    	foreach ($this->blacklistsFilteringGroups as $blid){
+    		$result = Blacklist::find()->where(['id' => (int)$blid->blacklist_id])->one();
+    		array_push($bl_names,$result->name);
+    	}
+    	return implode(',', $bl_names);
     }
 }

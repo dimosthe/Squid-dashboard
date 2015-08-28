@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\helpers\Squid;
+use app\helpers\SquidGuard;
 
 class SiteController extends Controller
 {
@@ -65,6 +66,14 @@ class SiteController extends Controller
             Yii::$app->getSession()->setFlash('reload_message', 'Unable to write to configuration file'); 
             return $this->redirect('index');
         }
+        
+        $status = SquidGuard::writeconfig();
+         
+        if(!$status)
+        {
+        	Yii::$app->getSession()->setFlash('reload_message', 'Unable to write to configuration file');
+        	return $this->redirect('index');
+        }
 
         $status = Squid::restart();
 
@@ -81,6 +90,15 @@ class SiteController extends Controller
             Yii::$app->getSession()->setFlash('reload_message', 'Unable to write to configuration file'); 
             return $this->redirect('index');
         }
+        
+        $status = SquidGuard::writeconfig();
+        
+        if(!$status)
+        {
+        	Yii::$app->getSession()->setFlash('reload_message', 'Unable to write to configuration file');
+        	return $this->redirect('index');
+        }
+        
 
         $status = Squid::start();
 
