@@ -47,7 +47,7 @@ class AnonymousController extends Controller
 
                     if($u !== NULL)
                     {
-                        $u->anonymous = false;
+                        $u->anonymous = 0;
                         $u->scenario ='create';
                         $u->save();
                     }
@@ -63,7 +63,7 @@ class AnonymousController extends Controller
 
                     if($u !== NULL)
                     {
-                        $u->anonymous = true;
+                        $u->anonymous = 1;
                         $u->scenario ='create';
                         $u->save();
                     }

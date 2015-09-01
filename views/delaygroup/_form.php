@@ -71,7 +71,7 @@ use kartik\sortinput\SortableInput;
 				<strong>Selected Users</strong></br></br>
 				<?php
 				echo SortableInput::widget([
-					'name'=>'DelayGroup[anonymous_users]',
+					'name'=>'DelayGroup[users_input]',
 					'id' => 'sortable2',
 					'items' => $model->isNewRecord? []: $temp1,
 					'hideInput' => true,

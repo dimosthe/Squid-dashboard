@@ -10,7 +10,7 @@ class SquidGuard
 	const SQUIDGUARD_CONF = '/etc/squidguard/squidGuard.conf';
 	const SQUIDGUARD_DEFAULT_CONF = '/home/proxyvnf/dashboard/Squid-dashboard/SquidGuard/squidGuard.conf';
 	const FILTERING_GROUP_SPECIFICATION_TEMPLATE = "src %s{\n\tuser %s \n}\n";
-	const FILTERING_GROUP_ACL_TEMPLATE = "\t%s { \n\t\tpass %s all \n\t\tredirect http://217.27.59.138/test/index.php?\n\t}\n";
+	const FILTERING_GROUP_ACL_TEMPLATE = "\t%s { \n\t\tpass %s all \n\t\tredirect http://localhost/squid/denied?\n\t}\n";
 	
 	public static function writeconfig()
 	{

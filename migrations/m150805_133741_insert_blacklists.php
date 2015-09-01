@@ -10,7 +10,7 @@ class m150805_133741_insert_blacklists extends Migration
 		$this->insert('blacklist', array('id'=>'', 'name'=>'malware', 'comments'=>''));
 		$this->insert('blacklist', array('id'=>'', 'name'=>'social_networks', 'comments'=>''));
 		$this->insert('blacklist', array('id'=>'', 'name'=>'adult', 'comments'=>''));
-		$this->insert('blacklist', array('id'=>'', 'name'=>'aggresive', 'comments'=>''));
+		$this->insert('blacklist', array('id'=>'', 'name'=>'aggressive', 'comments'=>''));
 		$this->insert('blacklist', array('id'=>'', 'name'=>'socialnetworking', 'comments'=>''));
 		$this->insert('blacklist', array('id'=>'', 'name'=>'drugs', 'comments'=>''));
 		$this->insert('blacklist', array('id'=>'', 'name'=>'mixed_adult', 'comments'=>''));

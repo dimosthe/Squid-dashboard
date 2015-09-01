@@ -43,8 +43,10 @@ class Squid
 				$delay_string .= "delay_access " . $count . " allow " . $group->name . "\n";
 
 				$users = [];
-				foreach($group->users as $user)
-					array_push($users, $user->username);	
+				foreach($group->users as $user){
+					if($user->blocked_at === NULL)
+						array_push($users, $user->username);	
+				}
 
 				$acl_string .= implode(' ', $users);
 				$acl_string .= " REQUIRED" . "\n";
@@ -104,7 +106,7 @@ class Squid
 	 */
 	public static function restart()
 	{
-		$status = shell_exec('sudo service squid restart');
+		$status = shell_exec('sudo service squid reload');
 
 		return $status;
 	}

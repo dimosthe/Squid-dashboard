@@ -37,9 +37,9 @@ class FilteringGroup extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name', 'users_input_bl'], 'required'],
             [['name', 'comment'], 'string', 'max' => 255],
-        	[['users_input_bl', 'users_input'], 'safe'],
+        	[['users_input'], 'safe'],
         ];
     }
 
