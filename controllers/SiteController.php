@@ -10,6 +10,10 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\helpers\Squid;
 use app\helpers\SquidGuard;
+use app\models\User;
+use app\models\Blacklist;
+use app\models\DelayGroup;
+use app\models\FilteringGroup;
 
 class SiteController extends Controller
 {
@@ -54,7 +58,17 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $users = User::find()->count();
+        $blacklists = Blacklist::find()->count();
+        $delaygroups = DelayGroup::find()->count();
+        $filteringgroups = FilteringGroup::find()->count();
+
+        return $this->render('index', [
+            'users' => $users,
+            'blacklists' => $blacklists,
+            'delaygroups' => $delaygroups,
+            'filteringgroups' => $filteringgroups
+        ]);
     }
 
     public function actionReloadsquid()

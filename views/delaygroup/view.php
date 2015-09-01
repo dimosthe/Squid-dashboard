@@ -21,7 +21,7 @@ $this->title = $model->name;
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?= Yii::$app->homeUrl; ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="<?= Url::to(['/delaygroup/index']); ?>">Bandwidth Restriction Groups</a></li>
+        <li><a href="<?= Url::to(['/delaygroup/index']); ?>">Web Access Groups</a></li>
         <li class="active"><?= Html::encode($this->title); ?></li>
     </ol>
 </section>

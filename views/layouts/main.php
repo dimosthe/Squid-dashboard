@@ -194,11 +194,11 @@ CustomAsset::register($this);
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-firefox"></i>
-                            <span>Network Access</span>
+                            <span>Web Access</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="<?= Url::to(['/delaygroup/index']); ?>"><i class="fa fa-circle-o text-red"></i> Bandwidth Restriction Groups</a></li>
+                            <li><a href="<?= Url::to(['/delaygroup/index']); ?>"><i class="fa fa-circle-o text-red"></i> Web Access Groups</a></li>
                             <li><a href="<?= Url::to(['/delaygroup/create']); ?>"><i class="fa fa-circle-o text-yellow"></i> Create Group</a></li>
                         </ul>
                     </li>

@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\DealyGroupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Bandwidth Restriction Groups';
+$this->title = 'Web Access Groups';
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
