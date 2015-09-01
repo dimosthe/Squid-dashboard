@@ -4,6 +4,7 @@ namespace app\helpers;
 use yii\helpers\Html; 
 use app\models\DelayGroup;
 use app\models\User;
+use app\models\Cache;
 
 /**
  * Helper for editting Squid's configuration file
@@ -61,6 +62,20 @@ class Squid
 		{
 			$users_list .= $user->username . " ";
 		}
+
+		$all_enabled = Cache::find()->where(['enabled' => 1])->all();
+
+		$patterns = [];
+		$options = [];
+		foreach ($all_enabled as $setting) {
+			if($setting->type === 0)
+				array_push($patterns, $setting->name);
+			elseif($setting->type === 1)
+				array_push($options, $setting->name);
+		}
+
+		$patterns_str = implode('|', $patterns);
+		$options_str = implode(' ', $options);
 
 		if(!empty($users_list))
 			$acl_string .= "acl named proxy_auth " . $users_list;

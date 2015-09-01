@@ -230,7 +230,7 @@ CustomAsset::register($this);
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-circle-o text-red"></i> Preferences</a></li>
+                            <li><a href="<?= Url::to(['/cache/preferences']); ?>"><i class="fa fa-circle-o text-red"></i> Preferences</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
