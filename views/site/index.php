@@ -24,7 +24,7 @@ $this->title = 'PXaaS vNF'; ?>
             <div class="info-box">
                 <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">ACCOUNTS</span>
+                    <span class="info-box-text"><?= Html::a('ACCOUNTS', ['/user/admin/index']); ?></span>
                     <span class="info-box-number"><?= $users ?></span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
@@ -33,7 +33,7 @@ $this->title = 'PXaaS vNF'; ?>
             <div class="info-box">
                 <span class="info-box-icon bg-aqua"><i class="fa fa-firefox"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">WEB ACCESS</span>
+                    <span class="info-box-text"><?= Html::a('WEB ACCESS', ['/delaygroup/index']); ?></span>
                     <span class="info-box-number"><?= $delaygroups ?><small> groups</small></span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
@@ -42,7 +42,7 @@ $this->title = 'PXaaS vNF'; ?>
             <div class="info-box">
                 <span class="info-box-icon bg-red"><i class="fa fa-filter"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">WEB FILTERING</span>
+                    <span class="info-box-text"><?= Html::a('WEB FILTERING', ['/filteringgroup/index']); ?></span>
                     <span class="info-box-number"><?= $filteringgroups ?><small> groups</small></span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
@@ -55,7 +55,7 @@ $this->title = 'PXaaS vNF'; ?>
             <div class="info-box">
                 <span class="info-box-icon bg-green"><i class="fa fa-list"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">BLACKLISTS</span>
+                    <span class="info-box-text"><?= Html::a('BLACKLISTS', ['/blacklist/index']); ?></span>
                     <span class="info-box-number"><?= $blacklists ?></span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
@@ -73,18 +73,18 @@ $this->title = 'PXaaS vNF'; ?>
                     </div>
             <?php endif; ?>
 
-            <?= Html::a('Start Proxy', ['startsquid'], [
+            <?= Html::a('<i class="fa fa-play"></i> Start Proxy', ['startsquid'], [
+                'class' => 'btn btn-lg btn-success',
+                'data-method' => 'post',
+            ]); ?>
+
+            <?= Html::a('<i class="fa fa-stop"></i> Stop Proxy', ['stopsquid'], [
                 'class' => 'btn btn-lg btn-danger',
                 'data-method' => 'post',
             ]); ?>
 
-            <?= Html::a('Stop Proxy', ['stopsquid'], [
-                'class' => 'btn btn-lg btn-danger',
-                'data-method' => 'post',
-            ]); ?>
-
-            <?= Html::a('Reload Proxy', ['reloadsquid'], [
-                'class' => 'btn btn-lg btn-danger',
+            <?= Html::a('<i class="fa fa-repeat"></i> Reload Proxy', ['reloadsquid'], [
+                'class' => 'btn btn-lg btn-warning',
                 'data-method' => 'post',
             ]); ?>
         </div>
