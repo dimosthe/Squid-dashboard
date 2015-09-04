@@ -8,7 +8,8 @@ use app\models\User;
 
 class SecurityController extends BaseSecurityController
 {
-	public function actionLogin()
+	//public $enableCsrfValidation = false;
+    public function actionLogin()
 	{
 		$this->layout = '@app/views/layouts/noheader';
 
@@ -19,9 +20,9 @@ class SecurityController extends BaseSecurityController
         $model = \Yii::createObject(LoginForm::className());
 
         $this->performAjaxValidation($model);
-
+      
         if ($model->load(Yii::$app->getRequest()->post()) && $model->login()) 
-        {
+        {   
             $user_id = \Yii::$app->user->identity->id;
             $finder = new Finder;
             $user = User::findOne($user_id);
@@ -30,6 +31,7 @@ class SecurityController extends BaseSecurityController
             //    $name = is_null($profile->name) || !(trim($profile->name))?\Yii::$app->user->identity->username:$profile->name;
             //else
                 $name = $user->username;//\Yii::$app->user->identity->username;
+
             \Yii::$app->session->set('user.name', $name);
             return $this->goBack();
         }

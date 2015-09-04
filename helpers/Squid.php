@@ -65,6 +65,7 @@ class Squid
 
 		$all_enabled = Cache::find()->where(['enabled' => 1])->all();
 
+		// caching configuration
 		$patterns = [];
 		$options = [];
 		foreach ($all_enabled as $setting) {
@@ -89,6 +90,16 @@ class Squid
 		if(Squid::write("# DELAY POOLS", "# DELAY POOLS END", $delay_string) === false)
 			return false;
 
+		if(!empty($patterns_str))
+		{
+			$cache_string = "refresh_pattern -i \.(".$patterns_str.")$ 220000 100% 300000 ".$options_str;
+			
+			if(Squid::write("# CACHE CONTROL", "# CACHE CONTROL END", $cache_string) === false)
+				return false;
+		}
+		else
+			if(Squid::write("# CACHE CONTROL", "# CACHE CONTROL END", "") === false)
+				return false;
 		
 		return true;
 	}
