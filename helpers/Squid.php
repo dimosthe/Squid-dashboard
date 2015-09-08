@@ -4,8 +4,8 @@ namespace app\helpers;
 use yii\helpers\Html; 
 use app\models\DelayGroup;
 use app\models\User;
-use app\models\Cache;
-
+//use app\models\Cache;
+use app\models\Cachestatus;
 /**
  * Helper for editting Squid's configuration file
  *
@@ -14,7 +14,7 @@ use app\models\Cache;
 class Squid
 {
 	const SQUID_CONF = '/etc/squid/squid.conf'; // Squid's configuration file path
-
+	const SQUID_DEFAULT_CONF = '/home/proxyvnf/dashboard/Squid-dashboard/squid/squid.conf';
 	/**
 	 * Reads configuration data from DB and writes it to Squid's configuration file
 	 */
@@ -63,10 +63,10 @@ class Squid
 			$users_list .= $user->username . " ";
 		}
 
-		$all_enabled = Cache::find()->where(['enabled' => 1])->all();
+		//$all_enabled = Cache::find()->where(['enabled' => 1])->all();
 
 		// caching configuration
-		$patterns = [];
+		/*$patterns = [];
 		$options = [];
 		foreach ($all_enabled as $setting) {
 			if($setting->type === 0)
@@ -76,12 +76,12 @@ class Squid
 		}
 
 		$patterns_str = implode('|', $patterns);
-		$options_str = implode(' ', $options);
+		$options_str = implode(' ', $options);*/
 
 		if(!empty($users_list))
 			$acl_string .= "acl named proxy_auth " . $users_list;
 
-		if(Squid::write("# ACL LIST", "# ACL LIST END", $acl_string) === false)
+		if(Squid::write("# ACL LIST", "# ACL LIST END", $acl_string, Squid::SQUID_DEFAULT_CONF) === false)
 			return false;
 		
 		if(Squid::write("# ACCESS CONTROL", "# ACCESS CONTROL END", $access_string) === false)
@@ -90,7 +90,19 @@ class Squid
 		if(Squid::write("# DELAY POOLS", "# DELAY POOLS END", $delay_string) === false)
 			return false;
 
-		if(!empty($patterns_str))
+		$cachestatus = Cachestatus::findOne(1);	
+		if($cachestatus !== NULL)
+		{
+			if($cachestatus->enabled === 0)
+			{
+				if(Squid::write("# CACHE CONTROL", "# CACHE CONTROL END", "cache deny all") === false)
+					return false;
+			}
+		}
+		else
+			return false;
+
+		/*if(!empty($patterns_str))
 		{
 			$cache_string = "refresh_pattern -i \.(".$patterns_str.")$ 220000 100% 300000 ".$options_str;
 			
@@ -100,7 +112,7 @@ class Squid
 		else
 			if(Squid::write("# CACHE CONTROL", "# CACHE CONTROL END", "") === false)
 				return false;
-		
+		*/
 		return true;
 	}
 
@@ -144,9 +156,9 @@ class Squid
 	 * @param string $conf
 	 * @return boolean
 	 */
-	private static function write($start, $end, $conf, $file = Squid::SQUID_CONF)
+	private static function write($start, $end, $conf, $infile = Squid::SQUID_CONF, $outfile = Squid::SQUID_CONF)
 	{
-		$file = @file_get_contents($file);
+		$file = @file_get_contents($infile);
 
 		if($file === false)
 			return false;
@@ -160,7 +172,7 @@ class Squid
 		$a = substr($file, 0, $pos_start + strlen($start));
 		$b = substr($file, $pos_end);
 
-		if(file_put_contents(Squid::SQUID_CONF, $a."\n". $conf . "\n" .$b) === false)
+		if(file_put_contents($outfile, $a."\n". $conf . "\n" .$b) === false)
 			return false;
 
 		return true;

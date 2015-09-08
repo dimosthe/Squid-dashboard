@@ -3,8 +3,9 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Cache;
-use app\models\CacheForm;
+//use app\models\Cache;
+//use app\models\CacheForm;
+use app\models\Cachestatus;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -33,6 +34,21 @@ class CacheController extends Controller
     }
 
     public function actionPreferences()
+    {
+        $cachestatus = Cachestatus::findOne(1);
+
+        if($cachestatus->load(Yii::$app->getRequest()->post()) && $cachestatus->save())
+        {
+            Yii::$app->getSession()->setFlash('Csuccess', 'Caching status has been successfully updated');
+            return $this->refresh();
+        }
+
+        return $this->render('preferences', [
+            'cachestatus' => $cachestatus,
+        ]);
+    }
+
+    /*public function actionPreferences()
     {
         $cacheform = new CacheForm();
         $patterns = Cache::find()->where(['type' => 0])->all();
@@ -77,5 +93,5 @@ class CacheController extends Controller
             'options_enabled' => $options_enabled,
             'cacheform' => $cacheform,
         ]);
-    }
+    }*/
 }
