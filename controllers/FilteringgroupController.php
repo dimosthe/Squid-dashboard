@@ -78,7 +78,7 @@ class FilteringgroupController extends Controller
     public function actionCreate()
     {
         $model = new FilteringGroup();
-        $users = User::find()->select(['id', 'username', 'delay_group_id'])->all();
+        $users = User::find()->select(['id', 'username', 'filtering_group_id'])->all();
         $blists = Blacklist::find()->select(['id', 'name'])->all();
         
 

@@ -61,32 +61,58 @@ $this->title = 'PXaaS vNF'; ?>
             </div><!-- /.info-box -->
         </div><!-- /.col -->
     </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Proxy Actions</h3>
+                </div>
+                <div class="box-body">       
+                    <?php if (Yii::$app->getSession()->hasFlash('reload_message')): ?>
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="icon fa fa-check"></i> <?= Yii::$app->getSession()->getFlash('reload_message') ?>
+                            </div>
+                    <?php endif; ?>
+                    <?php if (Yii::$app->getSession()->hasFlash('warning_message')): ?>
+                            <div class="alert alert-warning alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="icon fa fa-warning"></i> <?= Yii::$app->getSession()->getFlash('warning_message') ?>
+                            </div>
+                    <?php endif; ?>
 
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Proxy Actions</h3>
+                    <?= Html::a('<i class="fa fa-play"></i> Start Proxy', ['startsquid'], [
+                        'class' => 'btn btn-lg btn-success',
+                        'data-method' => 'post',
+                    ]); ?>
+
+                    <?= Html::a('<i class="fa fa-stop"></i> Stop Proxy', ['stopsquid'], [
+                        'class' => 'btn btn-lg btn-danger',
+                        'data-method' => 'post',
+                    ]); ?>
+
+                    <?= Html::a('<i class="fa fa-repeat"></i> Reload Proxy', ['reloadsquid'], [
+                        'class' => 'btn btn-lg btn-warning',
+                        'data-method' => 'post',
+                    ]); ?>
+                </div>
+            </div>
         </div>
-        <div class="box-body">       
-            <?php if (Yii::$app->getSession()->hasFlash('reload_message')): ?>
-                    <div class="alert alert-success">
-                        <p><?= Yii::$app->getSession()->getFlash('reload_message') ?></p>
-                    </div>
-            <?php endif; ?>
-
-            <?= Html::a('<i class="fa fa-play"></i> Start Proxy', ['startsquid'], [
-                'class' => 'btn btn-lg btn-success',
-                'data-method' => 'post',
-            ]); ?>
-
-            <?= Html::a('<i class="fa fa-stop"></i> Stop Proxy', ['stopsquid'], [
-                'class' => 'btn btn-lg btn-danger',
-                'data-method' => 'post',
-            ]); ?>
-
-            <?= Html::a('<i class="fa fa-repeat"></i> Reload Proxy', ['reloadsquid'], [
-                'class' => 'btn btn-lg btn-warning',
-                'data-method' => 'post',
-            ]); ?>
+        <div class="col-md-4">
+            <div class="info-box <?= $squidstatus? 'bg-green': 'bg-red' ?>">
+                <span class="info-box-icon"><i class="ion <?= $squidstatus? 'ion-thumbsup' : 'ion-thumbsdown' ?>"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Proxy Status</span>
+                    <span class="info-box-number"><?= $squidstatus?'Proxy is Running':'Proxy is not Running' ?></span>
+                </div>
+            </div>
+            <div class="info-box <?= $cachestatus? 'bg-green': 'bg-red' ?>">
+                <span class="info-box-icon"><i class="ion <?= $cachestatus? 'ion-checkmark' : 'ion-close' ?>"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Caching Status</span>
+                    <span class="info-box-number"><?= $cachestatus?'Caching is Enabled':'Caching is Disabled' ?></span>
+                </div>
+            </div>
         </div>
     </div>
 </section><!-- /.content -->

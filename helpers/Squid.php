@@ -124,6 +124,19 @@ class Squid
 	{
 		$status = shell_exec('sudo service squid start');
 
+		if($status)
+		{
+			$now = time();
+			$next = $now + 5;
+			while(1)
+			{
+				$squid_status = Squid::status();
+				if($squid_status === true)
+					break;
+				if(time() == $next)
+					break;
+			}
+		}
 		return $status;
 	}
 
@@ -133,9 +146,13 @@ class Squid
 	 */
 	public static function stop()
 	{
-		$status = shell_exec('sudo service squid stop');
+		//$status = shell_exec('sudo service squid stop');
+		//$status = shell_exec('sudo killall -9 squid');
+		$a = array();
+		$code = '';
+		exec('sudo killall -9 squid', $a, $code);
 
-		return $status;
+		return $code;
 	}
 
 	/**
@@ -147,6 +164,27 @@ class Squid
 		$status = shell_exec('sudo service squid reload');
 
 		return $status;
+	}
+
+	/**
+	 * Returns Squid's status
+	 * @return bool
+	 */
+	public static function status()
+	{
+		$status = shell_exec('sudo service squid status');
+
+		if($status !== NULL)
+        {
+            if(stripos($status, 'is not') === false)
+                $squid_status = true;
+            else
+                $squid_status = false;
+        }
+        else
+            $squid_status = false;
+
+		return $squid_status;
 	}
 
 	/**
