@@ -127,7 +127,7 @@ class Squid
 		if($status)
 		{
 			$now = time();
-			$next = $now + 5;
+			$next = $now + 10;
 			while(1)
 			{
 				$squid_status = Squid::status();
@@ -159,9 +159,20 @@ class Squid
 	 * Restarts Squid server
 	 * @return string
 	 */
+	/*public static function restart()
+	{
+		$status = shell_exec('sudo service squid reload'); // if this is used, there is an issue blocking ssl sites
+
+		return $status;
+	}*/
 	public static function restart()
 	{
-		$status = shell_exec('sudo service squid reload');
+		$status = Squid::stop();
+		if($status === 0)
+            $status = '* Stopping Squid HTTP Proxy 3.x squid ...done.';
+        else
+        	$status = 'Unable to stop Squid HTTP Proxy 3.x';
+		$status .= Squid::start();
 
 		return $status;
 	}
