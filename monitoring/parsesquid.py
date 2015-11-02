@@ -1,3 +1,8 @@
+''' 
+    File: parsesquid.py
+    Description: Collects Squid statistics using the squidclient tool
+''' 
+
 import subprocess
 import string
 import time
@@ -9,9 +14,9 @@ class Squidclient(object):
         self.command = command
         self.params = params
 
+    # runs the squidclient tool
     def execute(self):
         try:
-            #output = subprocess.check_output([self.command, self.params])
             output = subprocess.check_output("squidclient mgr:info", shell=True)
 
         except subprocess.CalledProcessError as e:
@@ -19,9 +24,8 @@ class Squidclient(object):
 
         return output
 
-    def parse(self, start_string, end_string="\n", first=True):
-        process = self.execute()
-
+    # parses the output of squidclient and returns a specific metric
+    def parse(self, process, start_string, end_string="\n", first=True):
         if process == False:
             return False
         
@@ -40,31 +44,4 @@ class Squidclient(object):
         if first:
             return string.strip(lis[1])
         else:
-            return string.strip(lis[2])[:-1]
-
-if __name__ == '__main__':
-
-    squid = Squidclient()
-
-    first = True
-    while True:
-        current_http = squid.parse("Number of HTTP requests received:")
-        hits_percentage = squid.parse("Hits as % of all requests:", ",", False)
-        
-        if current_http == False or hits_percentage == False:
-            print "problem"
-        else:
-            current_http = int(current_http)
-            if first:
-                previous_http = current_http
-                first = False
-        
-            diff_http = current_http - previous_http
-
-            if diff_http < 0:
-                diff_http = 0
-
-            previous_http = current_http
-            print diff_http
-            print hits_percentage
-        time.sleep(10)
+            return string.strip(lis[2])
