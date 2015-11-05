@@ -27,6 +27,9 @@ class CacheController extends Controller
                         'actions' => ['preferences'],
                         'allow' => true,
                         'roles' => ['@'],
+                        'matchCallback' => function () {
+                            return Yii::$app->user->identity->getIsAdmin();
+                        }
                     ],
                 ],
             ],

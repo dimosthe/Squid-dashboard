@@ -23,17 +23,20 @@ class FilteringgroupController extends Controller
     public function behaviors()
     {
         return [
-        		'access' => [
-        				'class' => AccessControl::className(),
-        				'only' => ['index', 'view', 'create', 'update', 'delete'],
-        				'rules' => [
-        						[
-        								'actions' => ['index', 'view', 'create', 'update', 'delete'],
-        								'allow' => true,
-        								'roles' => ['@'],
-        						],
-        				],
-        		],
+    		'access' => [
+				'class' => AccessControl::className(),
+				'only' => ['index', 'view', 'create', 'update', 'delete'],
+				'rules' => [
+					[
+						'actions' => ['index', 'view', 'create', 'update', 'delete'],
+						'allow' => true,
+						'roles' => ['@'],
+                        'matchCallback' => function () {
+                            return Yii::$app->user->identity->getIsAdmin();
+                        }
+					],
+				],
+    		],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

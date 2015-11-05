@@ -1,80 +1,40 @@
 <?php
-
+/**
+* Overrides the dektrium\user\models\LoginForm model
+**/
 namespace app\models;
 
-use Yii;
-use yii\base\Model;
+use dektrium\user\models\LoginForm as BaseLoginForm;
+use dektrium\user\helpers\Password;
 
-/**
- * LoginForm is the model behind the login form.
- */
-class LoginForm extends Model
+class LoginForm extends BaseLoginForm
 {
-    public $username;
-    public $password;
-    public $rememberMe = true;
-
-    private $_user = false;
-
-
-    /**
-     * @return array the validation rules.
-     */
+    /** @inheritdoc */
     public function rules()
     {
         return [
-            // username and password are both required
-            [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            'requiredFields' => [['login', 'password'], 'required'],
+            'loginTrim' => ['login', 'trim'],
+            'passwordValidate' => ['password', function ($attribute) {
+                if ($this->user === null || !Password::validate($this->password, $this->user->password_hash)) {
+                    $this->addError($attribute, \Yii::t('user', 'Invalid login or password'));
+                }
+                elseif (!$this->user->isAdmin) {
+                    $this->addError($attribute, \Yii::t('user', 'Only administrators are able to access this area'));
+                }
+            }],
+            'confirmationValidate' => ['login', function ($attribute) {
+                if ($this->user !== null) {
+                    $confirmationRequired = $this->module->enableConfirmation && !$this->module->enableUnconfirmedLogin;
+                    if ($confirmationRequired && !$this->user->getIsConfirmed()) {
+                        $this->addError($attribute, \Yii::t('user', 'You need to confirm your email address'));
+                    }
+                    if ($this->user->getIsBlocked()) {
+                        $this->addError($attribute, \Yii::t('user', 'Your account has been blocked'));
+                    }   
+                }
+            }],
+            'rememberMe' => ['rememberMe', 'boolean'],
         ];
-    }
-
-    /**
-     * Validates the password.
-     * This method serves as the inline validation for password.
-     *
-     * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
-     */
-    public function validatePassword($attribute, $params)
-    {
-        if (!$this->hasErrors()) {
-            $user = $this->getUser();
-
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
-            }
-        }
-    }
-
-    /**
-     * Logs in a user using the provided username and password.
-     * @return boolean whether the user is logged in successfully
-     */
-    public function login()
-    {
-        Yii::error("SDA");
-        if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Finds user by [[username]]
-     *
-     * @return User|null
-     */
-    public function getUser()
-    {
-        if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
-        }
-
-        return $this->_user;
     }
 }

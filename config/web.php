@@ -59,6 +59,7 @@ $config = [
             'admins' => ['admin'],
             'modelMap' => [
                 'User' => 'app\models\User',
+                'LoginForm' => 'app\models\LoginForm'
             ],
             'controllerMap' => [
                 'security' => 'app\controllers\SecurityController',
