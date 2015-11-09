@@ -7,10 +7,7 @@ The PXaaS Dashboard enables a user, who acts as the network administrator of his
 REQUIREMENTS
 ------------
 
-* > PHP 5.4.0
-* Yii 2
-* composer
-
+* [Proxy Build configuration](https://github.com/dimosthe/proxy-build) deploys the development environment which eventually deploys the PXaaS Dashboard as well.
 
 Versions
 --------
