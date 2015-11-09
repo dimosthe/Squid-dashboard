@@ -1,93 +1,25 @@
-Yii 2 Basic Project Template
+PXaaS Dashboard
 ============================
 
-Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-rapidly creating small projects.
-
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
-
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-app-basic/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Total Downloads](https://poser.pugx.org/yiisoft/yii2-app-basic/downloads.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-basic.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-basic)
-
-DIRECTORY STRUCTURE
--------------------
-
-      assets/             contains assets definition
-      commands/           contains console commands (controllers)
-      config/             contains application configurations
-      controllers/        contains Web controller classes
-      mail/               contains view files for e-mails
-      models/             contains model classes
-      runtime/            contains files generated during runtime
-      tests/              contains various tests for the basic application
-      vendor/             contains dependent 3rd-party packages
-      views/              contains view files for the Web application
-      web/                contains the entry script and Web resources
-
+The PXaaS Dashboard enables a user, who acts as the network administrator of his LAN, to configure the Squid Proxy on demand. The configuration parameters are stored in a MySql Database. In order for a new configuration to take effect, the squid.conf and squidGuard.conf files are modified accordingly by the apache process (after a Squid restart is performed by the user).    
 
 
 REQUIREMENTS
 ------------
 
-The minimum requirement by this project template that your Web server supports PHP 5.4.0.
+* > PHP 5.4.0
+* Yii 2
+* composer
 
 
-INSTALLATION
-------------
+Versions
+--------
 
-### Install from an Archive File
+version 1. Features:
 
-Extract the archive file downloaded from [yiiframework.com](http://www.yiiframework.com/download/) to
-a directory named `basic` that is directly under the Web root.
-
-You can then access the application through the following URL:
-
-~~~
-http://localhost/basic/web/
-~~~
-
-
-### Install via Composer
-
-If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
-
-You can then install this project template using the following command:
-
-~~~
-php composer.phar global require "fxp/composer-asset-plugin:~1.0.0"
-php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic basic
-~~~
-
-Now you should be able to access the application through the following URL, assuming `basic` is the directory
-directly under the Web root.
-
-~~~
-http://localhost/basic/web/
-~~~
-
-
-CONFIGURATION
--------------
-
-### Database
-
-Edit the file `config/db.php` with real data, for example:
-
-```php
-return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    'username' => 'root',
-    'password' => '1234',
-    'charset' => 'utf8',
-];
-```
-
-**NOTE:** Yii won't create the database for you, this has to be done manually before you can access it.
-
-Also check and edit the other files in the `config/` directory to customize your application.
-# Squid-dashboard
+* User management: User accounts can be created with a username and password. Those accounts are used to access the proxy services.
+* Access control: Users must enter their credentials in their browsers in order to surf the web.
+* Bandwidth limitations: Group of users can be created with a shared amount of bandwidth. In this case bandwidth limitations can be introduced to a group of users.
+* Website filtering: Group of users can be created with restricted access to a list of websites. Pre-defined lists with urls are provided.
+* Web caching: Web caching can be enabled in order to cache web content and improve response time.
+* User Anonymity: Users can surf the web anonymously.
