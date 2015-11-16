@@ -25,6 +25,7 @@ class Squid
 
 		$acl_string = "";
 		$access_string = "";
+		$delay_string = "";
 		$count = count($groups);
 
 		if($count > 0)
