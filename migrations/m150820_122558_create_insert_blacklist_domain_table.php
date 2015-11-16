@@ -15,8 +15,7 @@ class m150820_122558_create_insert_blacklist_domain_table extends Migration
     	
     	$this->addForeignKey('FK_BL_DOMAIN_BL_ID','blacklist_domains','blacklist_id','blacklist','id','CASCADE','CASCADE');
     	
-    	
-    	$handle = fopen("/etc/squidguard/blacklists/malware/domains", "r");
+    	$handle = fopen("/etc/squidguard/blacklists/adult/domains", "r");
     	if ($handle) {
     		while (($line = fgets($handle)) !== false) {
     			$this->insert('blacklist_domains', array('id'=>'', 'domain'=>$line, 'blacklist_id'=>'1'));
@@ -24,7 +23,7 @@ class m150820_122558_create_insert_blacklist_domain_table extends Migration
     		fclose($handle);
     	}
     	
-    	$handle = fopen("/etc/squidguard/blacklists/social_networks/domains", "r");
+    	$handle = fopen("/etc/squidguard/blacklists/aggressive/domains", "r");
     	if ($handle) {
     		while (($line = fgets($handle)) !== false) {
     			$this->insert('blacklist_domains', array('id'=>'', 'domain'=>$line, 'blacklist_id'=>'2'));
@@ -32,23 +31,23 @@ class m150820_122558_create_insert_blacklist_domain_table extends Migration
     		fclose($handle);
     	}
     	
-    	$handle = fopen("/etc/squidguard/blacklists/adult/domains", "r");
+    	$handle = fopen("/etc/squidguard/blacklists/socialnetworking/domains", "r");
     	if ($handle) {
     		while (($line = fgets($handle)) !== false) {
     			$this->insert('blacklist_domains', array('id'=>'', 'domain'=>$line, 'blacklist_id'=>'3'));
     		}
     		fclose($handle);
     	}
+
+        $handle = fopen("/etc/squidguard/blacklists/audio-video/domains", "r");
+        if ($handle) {
+            while (($line = fgets($handle)) !== false) {
+                $this->insert('blacklist_domains', array('id'=>'', 'domain'=>$line, 'blacklist_id'=>'4'));
+            }
+            fclose($handle);
+        }
     	
-    	$handle = fopen("/etc/squidguard/blacklists/aggressive/domains", "r");
-    	if ($handle) {
-    		while (($line = fgets($handle)) !== false) {
-    			$this->insert('blacklist_domains', array('id'=>'', 'domain'=>$line, 'blacklist_id'=>'4'));
-    		}
-    		fclose($handle);
-    	}
-    	
-    	$handle = fopen("/etc/squidguard/blacklists/socialnetworking/domains", "r");
+    	$handle = fopen("/etc/squidguard/blacklists/drugs/domains", "r");
     	if ($handle) {
     		while (($line = fgets($handle)) !== false) {
     			$this->insert('blacklist_domains', array('id'=>'', 'domain'=>$line, 'blacklist_id'=>'5'));
@@ -56,7 +55,7 @@ class m150820_122558_create_insert_blacklist_domain_table extends Migration
     		fclose($handle);
     	}
     	
-    	$handle = fopen("/etc/squidguard/blacklists/drugs/domains", "r");
+    	$handle = fopen("/etc/squidguard/blacklists/mixed_adult/domains", "r");
     	if ($handle) {
     		while (($line = fgets($handle)) !== false) {
     			$this->insert('blacklist_domains', array('id'=>'', 'domain'=>$line, 'blacklist_id'=>'6'));
@@ -64,7 +63,7 @@ class m150820_122558_create_insert_blacklist_domain_table extends Migration
     		fclose($handle);
     	}
     	
-    	$handle = fopen("/etc/squidguard/blacklists/mixed_adult/domains", "r");
+    	$handle = fopen("/etc/squidguard/blacklists/violence/domains", "r");
     	if ($handle) {
     		while (($line = fgets($handle)) !== false) {
     			$this->insert('blacklist_domains', array('id'=>'', 'domain'=>$line, 'blacklist_id'=>'7'));
@@ -72,25 +71,47 @@ class m150820_122558_create_insert_blacklist_domain_table extends Migration
     		fclose($handle);
     	}
     	
-    	$handle = fopen("/etc/squidguard/blacklists/violence/domains", "r");
+    	$handle = fopen("/etc/squidguard/blacklists/porn/domains", "r");
     	if ($handle) {
     		while (($line = fgets($handle)) !== false) {
     			$this->insert('blacklist_domains', array('id'=>'', 'domain'=>$line, 'blacklist_id'=>'8'));
     		}
     		fclose($handle);
     	}
-    	
-    	$handle = fopen("/etc/squidguard/blacklists/porn/domains", "r");
-    	if ($handle) {
-    		while (($line = fgets($handle)) !== false) {
-    			$this->insert('blacklist_domains', array('id'=>'', 'domain'=>$line, 'blacklist_id'=>'9'));
-    		}
-    		fclose($handle);
-    	}
     		
+        $handle = fopen("/etc/squidguard/blacklists/ads/domains", "r");
+        if ($handle) {
+            while (($line = fgets($handle)) !== false) {
+                $this->insert('blacklist_domains', array('id'=>'', 'domain'=>$line, 'blacklist_id'=>'9'));
+            }
+            fclose($handle);
+        }
+
+        $handle = fopen("/etc/squidguard/blacklists/dating/domains", "r");
+        if ($handle) {
+            while (($line = fgets($handle)) !== false) {
+                $this->insert('blacklist_domains', array('id'=>'', 'domain'=>$line, 'blacklist_id'=>'10'));
+            }
+            fclose($handle);
+        }
     	
-    	
-    		return true;
+    	$handle = fopen("/etc/squidguard/blacklists/chat/domains", "r");
+        if ($handle) {
+            while (($line = fgets($handle)) !== false) {
+                $this->insert('blacklist_domains', array('id'=>'', 'domain'=>$line, 'blacklist_id'=>'11'));
+            }
+            fclose($handle);
+        }
+
+        $handle = fopen("/etc/squidguard/blacklists/gambling/domains", "r");
+        if ($handle) {
+            while (($line = fgets($handle)) !== false) {
+                $this->insert('blacklist_domains', array('id'=>'', 'domain'=>$line, 'blacklist_id'=>'12'));
+            }
+            fclose($handle);
+        }
+    		
+        return true;
     	
     }
 

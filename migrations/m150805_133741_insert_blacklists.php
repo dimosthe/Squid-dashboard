@@ -7,15 +7,18 @@ class m150805_133741_insert_blacklists extends Migration
 {
     public function safeUp()
     {
-		$this->insert('blacklist', array('id'=>'', 'name'=>'malware', 'comments'=>''));
-		$this->insert('blacklist', array('id'=>'', 'name'=>'social_networks', 'comments'=>''));
 		$this->insert('blacklist', array('id'=>'', 'name'=>'adult', 'comments'=>''));
 		$this->insert('blacklist', array('id'=>'', 'name'=>'aggressive', 'comments'=>''));
 		$this->insert('blacklist', array('id'=>'', 'name'=>'socialnetworking', 'comments'=>''));
+        $this->insert('blacklist', array('id'=>'', 'name'=>'audio-video', 'comments'=>''));
 		$this->insert('blacklist', array('id'=>'', 'name'=>'drugs', 'comments'=>''));
 		$this->insert('blacklist', array('id'=>'', 'name'=>'mixed_adult', 'comments'=>''));
 		$this->insert('blacklist', array('id'=>'', 'name'=>'violence', 'comments'=>''));
 		$this->insert('blacklist', array('id'=>'', 'name'=>'porn', 'comments'=>''));
+        $this->insert('blacklist', array('id'=>'', 'name'=>'ads', 'comments'=>''));
+        $this->insert('blacklist', array('id'=>'', 'name'=>'dating', 'comments'=>''));
+        $this->insert('blacklist', array('id'=>'', 'name'=>'chat', 'comments'=>''));
+        $this->insert('blacklist', array('id'=>'', 'name'=>'gambling', 'comments'=>''));
     }
 
     public function safeDown()
