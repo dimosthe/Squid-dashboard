@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
-            "version": "v2.2.0",
+            "version": "v2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/almasaeed2010/AdminLTE.git",
-                "reference": "a6c2500da3cb4a333ca436f4f78cf09dd00ca9ba"
+                "reference": "1ee281b3b99e8d8cccdc72fb8437c6888149cb46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/almasaeed2010/AdminLTE/zipball/a6c2500da3cb4a333ca436f4f78cf09dd00ca9ba",
-                "reference": "a6c2500da3cb4a333ca436f4f78cf09dd00ca9ba",
+                "url": "https://api.github.com/repos/almasaeed2010/AdminLTE/zipball/1ee281b3b99e8d8cccdc72fb8437c6888149cb46",
+                "reference": "1ee281b3b99e8d8cccdc72fb8437c6888149cb46",
                 "shasum": ""
             },
             "type": "library",
@@ -44,7 +44,7 @@
                 "theme",
                 "web"
             ],
-            "time": "2015-07-08 21:18:12"
+            "time": "2015-10-23 14:50:49"
         },
         {
             "name": "bower-asset/bootstrap",
@@ -455,7 +455,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/f1bdf1f687c0f2774e90a368e26544017e6918b2",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/cbb3ce2fa20171fd5ae13525621f60ea2caebd20",
                 "reference": "f1bdf1f687c0f2774e90a368e26544017e6918b2",
                 "shasum": ""
             },
