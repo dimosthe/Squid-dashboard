@@ -142,7 +142,7 @@ class SiteController extends Controller
     {
         if(Squid::status())
         {
-            $status = Squid::stop();
+            $status = Squid::forceStop();
 
             if($status === 0)
                 $status = '* Stopping Squid HTTP Proxy 3.x squid ...done.';

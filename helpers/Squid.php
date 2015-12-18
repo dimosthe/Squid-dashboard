@@ -142,10 +142,10 @@ class Squid
 	}
 
 	/**
-	 * Stops Squid server
+	 * Force stops Squid server
 	 * @return string
 	 */
-	public static function stop()
+	public static function forceStop()
 	{
 		//$status = shell_exec('sudo service squid stop');
 		//$status = shell_exec('sudo killall -9 squid');
@@ -154,6 +154,17 @@ class Squid
 		exec('sudo killall -9 squid', $a, $code);
 
 		return $code;
+	}
+
+	/**
+	 * Stops Squid server
+	 * @return string
+	 */
+	public static function Stop()
+	{
+		$status = shell_exec('sudo service squid stop');
+
+		return $status;
 	}
 
 	/**
@@ -168,7 +179,7 @@ class Squid
 	}*/
 	public static function restart()
 	{
-		$status = Squid::stop();
+		$status = Squid::forceStop();
 		if($status === 0)
             $status = '* Stopping Squid HTTP Proxy 3.x squid ...done.';
         else
