@@ -48,7 +48,7 @@ if __name__ == '__main__':
     squid = Squidclient()
    
     first = True
-    f = open('/home/proxyvnf/dashboard/Squid-dashboard/monitoring/logs.txt', 'a')
+    f = open('logs.txt', 'a')
     process = squid.execute()
     
     if process:
@@ -64,13 +64,13 @@ if __name__ == '__main__':
         if all((current_http, hits_percentage, memory_hits, disk_hits, cache_disk_utilization, cache_memory_utilization, number_of_users, cpu_usage)):
             current_http = int(current_http)
             
-            file = open('/home/proxyvnf/dashboard/Squid-dashboard/monitoring/state.txt', 'r')
+            file = open('state.txt', 'r')
             previous_http = int(file.read())
             file.close()
             if previous_http == 0:
                 previous_http = current_http
 
-            file = open('/home/proxyvnf/dashboard/Squid-dashboard/monitoring/state.txt', 'w')
+            file = open('state.txt', 'w')
             file.write(str(current_http))
             file.close()
             
