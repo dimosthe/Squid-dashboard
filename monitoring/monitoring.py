@@ -47,7 +47,6 @@ if __name__ == '__main__':
 
     squid = Squidclient()
    
-    first = True
     f = open('logs.txt', 'a')
     process = squid.execute()
     
