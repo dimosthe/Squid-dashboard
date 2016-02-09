@@ -18,6 +18,7 @@ from parsesquid import Squidclient
 import time
 import sys
 from datetime import datetime
+import os
 
 ''' Sends metrics to influxdb at specified host and port '''
 class Monitoring(object):
@@ -43,11 +44,11 @@ class Monitoring(object):
 				self.client.write_points(json_body)
 
 if __name__ == '__main__':
+    dir_path = os.path.dirname(os.path.abspath(__file__))	 
     shell = Monitoring()
-
     squid = Squidclient()
    
-    f = open('logs.txt', 'a')
+    f = open(os.path.join(dir_path, 'logs.txt'), 'a')
     process = squid.execute()
     
     if process:
@@ -63,13 +64,13 @@ if __name__ == '__main__':
         if all((current_http, hits_percentage, memory_hits, disk_hits, cache_disk_utilization, cache_memory_utilization, number_of_users, cpu_usage)):
             current_http = int(current_http)
             
-            file = open('state.txt', 'r')
+            file = open(os.path.join(dir_path, 'state.txt'), 'r')
             previous_http = int(file.read())
             file.close()
             if previous_http == 0:
                 previous_http = current_http
 
-            file = open('state.txt', 'w')
+            file = open(os.path.join(dir_path, 'state.txt'), 'w')
             file.write(str(current_http))
             file.close()
             
