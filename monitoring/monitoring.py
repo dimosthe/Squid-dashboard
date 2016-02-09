@@ -22,7 +22,7 @@ from datetime import datetime
 ''' Sends metrics to influxdb at specified host and port '''
 class Monitoring(object):
 
-    def __init__(self, host='monitoring.sisyphus.mnl', port=8086, username='stats_user',
+    def __init__(self, host='emonitoring.sisyphus.mnl', port=8086, username='stats_user',
             password='tnova', db_name='statsdb'):
         self.client = InfluxDBClient(host, port, username, password, db_name)
 
