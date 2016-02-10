@@ -4,7 +4,8 @@
     Description: Sends Squid metrics to T-NOVA VIM infrastructure. 
     Metrics:
     - Number of HTTP requests received by Squid
-    - Cache hits percentage for the last 5 minutes
+    - Cache hits percentage of all requests for the last 5 minutes
+    - Cache hits percentage of bytes sent for the last 5 minutes
     - Memory hits percentage for the last 5 minutes (hits that are logged as TCP_MEM_HIT)
     - Disk hits percentage for the last 5 minutes (hits that are logged as TCP_HIT)
     - Cache disk utilization
@@ -54,6 +55,7 @@ if __name__ == '__main__':
     if process:
         current_http = squid.parse(process, "Number of HTTP requests received:")
         hits_percentage = squid.parse(process, "Hits as % of all requests:", ",", False)
+        hits_percentage_bytes = squid.parse(process, "Hits as % of bytes sent:", ",", False)
         memory_hits = squid.parse(process, "Memory hits as % of hit requests:", ",", False)
         disk_hits = squid.parse(process, "Disk hits as % of hit requests:", ",", False)
         cache_disk_utilization = squid.parse(process, "Storage Swap capacity:", ",")
@@ -80,6 +82,7 @@ if __name__ == '__main__':
 
             shell.send_metric('httpnum', str(diff_http))
             shell.send_metric('hits', hits_percentage[:-1])
+            shell.send_metric('hits_bytes', hits_percentage_bytes[:-1])
             shell.send_metric('memoryhits', memory_hits[:-1])
             shell.send_metric('diskhits', disk_hits[:-1])
             shell.send_metric('cachediskutilization', cache_disk_utilization[:-6])
@@ -89,6 +92,7 @@ if __name__ == '__main__':
             f.write("time: "+datetime.now().strftime('%Y-%m-%d %H:%M:%S')+"\n")
             f.write("Number of HTTP requests received: "+str(diff_http)+"\n")
             f.write("Hits as % of all requests: "+hits_percentage[:-1]+"\n")
+            f.write("Hits as % of bytes sent: "+hits_percentage_bytes[:-1]+"\n")
             f.write("Memory hits as % of hit requests: "+memory_hits[:-1]+"\n")
             f.write("Disk hits as % of hit requests: "+disk_hits[:-1]+"\n")
             f.write("Storage Swap capacity: "+cache_disk_utilization[:-6]+"\n")
