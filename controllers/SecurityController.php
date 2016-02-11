@@ -2,7 +2,7 @@
 namespace app\controllers;
 use dektrium\user\controllers\SecurityController as BaseSecurityController;
 use dektrium\user\models\LoginForm;
-use dektrium\user\Finder;
+use dektrium\user\models\Profile;
 use Yii;
 use app\models\User;
 
@@ -24,13 +24,16 @@ class SecurityController extends BaseSecurityController
         if ($model->load(Yii::$app->getRequest()->post()) && $model->login()) 
         {   
             $user_id = \Yii::$app->user->identity->id;
-            $finder = new Finder;
-            $user = User::findOne($user_id);
+            //$finder = new Finder;
+            //$user = User::findOne($user_id);
             //$profile = //$finder->findProfileById($user_id);
             //if($profile !== null)
             //    $name = is_null($profile->name) || !(trim($profile->name))?\Yii::$app->user->identity->username:$profile->name;
             //else
-                $name = $user->username;//\Yii::$app->user->identity->username;
+            //   $name = $user->username;//\Yii::$app->user->identity->username;
+
+            $profile = Profile::findOne(['user_id' => $user_id]);
+            $name = is_null($profile->name) || !(trim($profile->name))?\Yii::$app->user->identity->username:$profile->name;
 
             \Yii::$app->session->set('user.name', $name);
             return $this->goBack();
