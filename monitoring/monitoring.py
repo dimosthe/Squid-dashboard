@@ -21,6 +21,16 @@ import sys
 from datetime import datetime
 import os
 
+uuid_file = '/etc/collectd/instance_uuid'
+fixed_uuid = '03ed10fb-39d0-455e-bd5c-882552baaef0'
+
+def get_uuid():
+    if os.path.isfile(uuid_file):
+        with open(uuid_file, 'r') as f:
+            return f.readline().rstrip()
+    else:
+        return fixed_uuid
+
 ''' Sends metrics to influxdb at specified host and port '''
 class Monitoring(object):
 
@@ -30,22 +40,21 @@ class Monitoring(object):
 
 
     def send_metric(self, name, value) :
-				instance_uuid = "03ed10fb-39d0-455e-bd5c-882552baaef0"  
-				json_body = [
+                json_body = [
                 {
                     "measurement": name,
-										"tags": {
-											"host": instance_uuid
-										},
+                    "tags": {
+                        "host": get_uuid()
+                        },
                     "fields": {
                         "value": value
                         }
                     }
                 ]
-				self.client.write_points(json_body)
+                self.client.write_points(json_body)
 
 if __name__ == '__main__':
-    dir_path = os.path.dirname(os.path.abspath(__file__))	 
+    dir_path = os.path.dirname(os.path.abspath(__file__))    
     shell = Monitoring()
     squid = Squidclient()
    
