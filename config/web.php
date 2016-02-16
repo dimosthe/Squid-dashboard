@@ -10,7 +10,23 @@ $config = [
 		'urlManager' => [
 			'enablePrettyUrl' => true,
 			'showScriptName' => false,
-			'rules' =>[]
+			'rules' =>[
+                'users'                             => 'user/admin/index',
+                'user/create'                       => 'user/admin/create',
+                'user/update/<id:\d+>'              => 'user/admin/update',
+                'user/update-profile/<id:\d+>'      => 'user/admin/update-profile',
+                'user/info/<id:\d+>'                => 'user/admin/info',
+                'webaccessgroups'                   => 'delaygroup/index',
+                'webaccessgroup/create'             => 'delaygroup/create',
+                'webaccessgroup/<id:\d+>'           => 'delaygroup/view',
+                'webaccessgroup/<action>/<id:\d+>'  => 'delaygroup/<action>',
+                'filteringgroups'                   => 'filteringgroup/index',
+                'filteringgroup/<id:\d+>'           => 'filteringgroup/view',
+                'filteringgroup/<action>/<id:\d+>'  => 'filteringgroup/<action>',
+                'blacklists'                        => 'blacklist/index',
+                'blacklist/<id:\d+>'                => 'blacklist/view',
+
+            ]
 		],
 		'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation

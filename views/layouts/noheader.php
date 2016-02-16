@@ -12,7 +12,7 @@ CustomAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+<html class="full" lang="<?= Yii::$app->language ?>">
 <head>
 	<meta charset="<?= Yii::$app->charset ?>"/>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -23,8 +23,9 @@ CustomAsset::register($this);
     <?php $this->head() ?>
 </head>
 
-<body class="login-page">
+<body>
 	<?php $this->beginBody() ?>
+    <img src="/img/background.jpg" class="bg">
 		<?= $content ?>
 	<?php $this->endBody() ?>
 	<script>

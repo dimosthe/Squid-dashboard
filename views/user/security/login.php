@@ -23,10 +23,15 @@ $this->params['breadcrumbs'][] = $this->title;
      	<b>PXaaS</b> vNF
     </div><!-- /.login-logo -->
 	<div class="login-box-body">
-		<p class="login-box-msg">Sign in to start your session</p>
+		<p class="login-box-msg"><strong>Sign in to start your session</strong></p>
 
 		<?php $form = ActiveForm::begin([
 			'id' => 'login-form',
+			'enableAjaxValidation'   => true,
+            'enableClientValidation' => false,
+            'validateOnBlur'         => false,
+            'validateOnType'         => false,
+            'validateOnChange'       => false,
 		]) ?>
 	
 		<div class="form-group has-feedback">
@@ -57,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			
 			</div>
 			<div class="col-xs-4">
-				<?= Html::submitButton(Yii::t('user', 'Sign in'), ['class' => 'btn btn-primary btn-block btn-flat', 'tabindex' => '4']) ?>
+				<?= Html::submitButton(Yii::t('user', 'Sign in'), ['class' => 'btn btn-primary btn-block btn-flat btn-login', 'tabindex' => '4']) ?>
 			</div>
 		</div>
 		<?php ActiveForm::end(); ?>
