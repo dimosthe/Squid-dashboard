@@ -8,7 +8,7 @@ use yii\helpers\Url;
 $this->title = 'Update Group';
 ?>
 <section class="content-header">
-	<h1><?= Html::encode($this->title) ?> <?= Html::a('Show Group', ['/delaygroup/view','id'=>$model->id], ['class' => 'btn btn-success btn-xs']) ?></h1>
+	<h1><?= Html::encode($this->title) ?> <?= Html::a('<i class="glyphicon glyphicon-eye-open"></i> View', ['/delaygroup/view','id'=>$model->id], ['class' => 'btn btn-success']) ?></h1>
 	<ol class="breadcrumb">
 		<li><a href="<?= Yii::$app->homeUrl; ?>"><i class="fa fa-dashboard"></i> Home</a></li>
 		<li><a href="<?= Url::to(['/delaygroup/index']); ?>">Web Access Groups</a></li>

@@ -11,9 +11,9 @@ $this->title = $model->name;
 
 ?>
 <section class="content-header">
-    <h1><?= Html::encode($this->title) ?> <?= Html::a('Update Group', ['/filteringgroup/update','id'=>$model->id], ['class' => 'btn btn-success btn-xs'])?>
-         <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger btn-xs',
+    <h1><?= Html::encode($this->title) ?> <?= Html::a('<i class="glyphicon glyphicon-pencil"></i> Update', ['/filteringgroup/update','id'=>$model->id], ['class' => 'btn btn-success'])?>
+         <?= Html::a(Yii::t('app', '<i class="glyphicon glyphicon-remove"></i> Delete'), ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this group?'),
                 'method' => 'post',

@@ -259,7 +259,7 @@ CustomAsset::register($this);
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0
             </div>
-            <strong>&copy; PrimeTel PLC <?= date('Y') ?>.  All rights reserved.
+            <strong>&copy; T-NOVA <?= date('Y') ?>.  All rights reserved.
         </footer>
     </div>
     <?php $this->endBody() ?>
