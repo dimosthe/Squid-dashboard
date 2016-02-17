@@ -25,7 +25,6 @@ $config = [
                 'filteringgroup/<action>/<id:\d+>'  => 'filteringgroup/<action>',
                 'blacklists'                        => 'blacklist/index',
                 'blacklist/<id:\d+>'                => 'blacklist/view',
-
             ]
 		],
 		'request' => [

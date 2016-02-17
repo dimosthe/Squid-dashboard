@@ -1,4 +1,10 @@
 <?php
+/**
+ * This command creates a default user with username: admin, pass: administrator
+ * and administration priviledges
+ *
+ * @author George Dimosthenous
+ */
 
 namespace app\commands;
 

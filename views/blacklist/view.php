@@ -20,18 +20,7 @@ $this->title = $model->name;
 </section>
 
 <section class="content">
-    <?php // DetailView::widget([
-//         'model' => $model,
-//         'attributes' => [
-//             'name',
-//             [
-//                 'label' => 'Blocked Urls',
-//                 'value' => $model->getBlacklistURL(),
-//                 'format' => 'html',
-//             ],
-//         ],
-//     ]) ?>
-        <?php echo GridView::widget([
+    <?php echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'export' => false,
@@ -55,10 +44,9 @@ $this->title = $model->name;
             'heading'=>$this->title
         ],
         'layout'  => "{items}\n{pager}",
-        		'columns' => [
-        					['class' => 'yii\grid\SerialColumn'],
-        					'domain',
-        				],
-        
+        'columns' => [
+			['class' => 'yii\grid\SerialColumn'],
+			'domain',
+		],
     ]); ?>
 </section>

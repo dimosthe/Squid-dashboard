@@ -110,7 +110,7 @@ class FilteringgroupController extends Controller
         		}
         	}
         	
-        	Yii::$app->getSession()->setFlash('FGsuccess', 'Website Filtwering Group has been successfully created');
+        	Yii::$app->getSession()->setFlash('FGsuccess', 'Website Filtering Group has been successfully created');
         	
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

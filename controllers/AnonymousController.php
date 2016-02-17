@@ -26,9 +26,6 @@ class AnonymousController extends Controller
                         'actions' => ['preferences'],
                         'allow' => true,
                         'roles' => ['@'],
-                        'matchCallback' => function () {
-                            return Yii::$app->user->identity->getIsAdmin();
-                        }
                     ],
                 ],
             ],
@@ -39,7 +36,7 @@ class AnonymousController extends Controller
     {
     	$anonymityform = new AnonymityForm();
 
-    	if ($anonymityform->load(Yii::$app->getRequest()->post())) //&& $anonymityform->validate()) 
+    	if ($anonymityform->load(Yii::$app->getRequest()->post())) 
         {
             if(!empty($anonymityform->users)) 
             {
@@ -75,7 +72,6 @@ class AnonymousController extends Controller
             
 
             Yii::$app->getSession()->setFlash('Asuccess', 'Anonymity preferences have been successfully updated');
-            //return $this->redirect(['view', 'id' => $model->id]);
         } 
 
         $users = User::find()

@@ -16,7 +16,6 @@ use kartik\sortinput\SortableInput;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
     <?php 
 	    $bl = [];
-// 	    print_r(array_values($blists));
 	    foreach ($blists as $blist) {
 	    	$bl[$blist['id']] = Html::a($blist['name'],['/blacklist/view', 'id' => (int)$blist['id']],['data-pjax'=>0,]);
 	    }

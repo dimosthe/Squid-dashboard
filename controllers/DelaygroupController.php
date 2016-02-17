@@ -27,9 +27,6 @@ class DelaygroupController extends Controller
                         'actions' => ['index', 'view', 'create', 'update', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
-                        'matchCallback' => function () {
-                            return Yii::$app->user->identity->getIsAdmin();
-                        }
                     ],
                 ],
             ],

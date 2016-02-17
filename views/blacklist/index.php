@@ -47,18 +47,6 @@ $this->title = 'Blacklists';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'name',
-// 			[
-//                 'header' => 'Users',
-//                 'value' => function ($model, $key, $index, $widget) {
-//                     return $model->getUsersString();
-//                 },
-//             ],
-//             [
-//             'header' => 'Blocked Content',
-//             'value' => function ($model, $key, $index, $widget) {
-//             	return $model->getBlacklistsString();
-//             },
-//             ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view}',

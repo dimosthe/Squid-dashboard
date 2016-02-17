@@ -1,4 +1,10 @@
 <?php
+/**
+ * Commands to configure, start and stop Squid and SquidGuard
+ * E.g ./yii squid/start
+ *
+ * @author George Dimosthenous
+ **/
 
 namespace app\commands;
 
@@ -12,7 +18,11 @@ use app\helpers\SquidGuard;
 
 class SquidController extends Controller {
 
-	public function actionStart()
+	/**
+     * Updates Squid's and SquidGuard's configuration files and then starts the services
+     * @return string
+     */
+    public function actionStart()
 	{
 		if(!Squid::status())
         {
@@ -40,6 +50,10 @@ class SquidController extends Controller {
             $this->stdout('Squid Proxy is already running', Console::FG_RED);
 	}
 
+    /**
+     * Stops the services
+     * @return string
+     */
 	public function actionStop()
     {
         if(Squid::status())
@@ -51,5 +65,4 @@ class SquidController extends Controller {
         else
             $this->stdout('Squid Proxy is not running', Console::FG_RED);
     }
-
 }

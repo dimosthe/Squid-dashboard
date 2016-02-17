@@ -1,26 +1,29 @@
 <?php
-
-namespace app\helpers;
-use yii\helpers\Html; 
-use app\models\DelayGroup;
-use app\models\User;
-//use app\models\Cache;
-use app\models\Cachestatus;
 /**
  * Helper for editting Squid's configuration file
  *
+ * @author George Dimosthenous, Savvas Charalambides
  */
+
+namespace app\helpers;
+
+use yii\helpers\Html; 
+use app\models\DelayGroup;
+use app\models\User;
+use app\models\Cachestatus;
 
 class Squid
 {
 	const SQUID_CONF = '/etc/squid/squid.conf'; // Squid's configuration file path
-	const SQUID_DEFAULT_CONF = '/home/proxyvnf/dashboard/Squid-dashboard/squid/squid.conf';
+	const SQUID_DEFAULT_CONF = '/home/proxyvnf/dashboard/Squid-dashboard/squid/squid.conf'; // Squid's default configuration template
+	
 	/**
 	 * Reads configuration data from DB and writes it to Squid's configuration file
+	 *
+	 * @return bool
 	 */
 	public static function writeconfig()
 	{
-	
 		$groups = DelayGroup::find()->with('users')->all();
 
 		$acl_string = "";
@@ -64,21 +67,6 @@ class Squid
 			$users_list .= $user->username . " ";
 		}
 
-		//$all_enabled = Cache::find()->where(['enabled' => 1])->all();
-
-		// caching configuration
-		/*$patterns = [];
-		$options = [];
-		foreach ($all_enabled as $setting) {
-			if($setting->type === 0)
-				array_push($patterns, $setting->name);
-			elseif($setting->type === 1)
-				array_push($options, $setting->name);
-		}
-
-		$patterns_str = implode('|', $patterns);
-		$options_str = implode(' ', $options);*/
-
 		if(!empty($users_list))
 			$acl_string .= "acl named proxy_auth " . $users_list;
 
@@ -103,17 +91,6 @@ class Squid
 		else
 			return false;
 
-		/*if(!empty($patterns_str))
-		{
-			$cache_string = "refresh_pattern -i \.(".$patterns_str.")$ 220000 100% 300000 ".$options_str;
-			
-			if(Squid::write("# CACHE CONTROL", "# CACHE CONTROL END", $cache_string) === false)
-				return false;
-		}
-		else
-			if(Squid::write("# CACHE CONTROL", "# CACHE CONTROL END", "") === false)
-				return false;
-		*/
 		return true;
 	}
 
@@ -147,8 +124,6 @@ class Squid
 	 */
 	public static function forceStop()
 	{
-		//$status = shell_exec('sudo service squid stop');
-		//$status = shell_exec('sudo killall -9 squid');
 		$a = array();
 		$code = '';
 		exec('sudo killall -9 squid', $a, $code);
@@ -171,12 +146,6 @@ class Squid
 	 * Restarts Squid server
 	 * @return string
 	 */
-	/*public static function restart()
-	{
-		$status = shell_exec('sudo service squid reload'); // if this is used, there is an issue blocking ssl sites
-
-		return $status;
-	}*/
 	public static function restart()
 	{
 		$status = Squid::forceStop();
@@ -212,9 +181,11 @@ class Squid
 
 	/**
 	 * Writes configuration to Squid confifuration file. 
-	 * @param string $start 
+	 * @param string $start
 	 * @param string $end
-	 * @param string $conf
+	 * @param string $conf the configuration directives to be written
+	 * @param string $infile the configuration file path to read the configuration
+	 * @param string $outfile the configuration file path to write the configuration 
 	 * @return boolean
 	 */
 	private static function write($start, $end, $conf, $infile = Squid::SQUID_CONF, $outfile = Squid::SQUID_CONF)

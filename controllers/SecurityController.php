@@ -1,4 +1,13 @@
 <?php
+/** 
+ * This controller overrides the SecurityController defined in yii2-user module
+ * methods overrided:
+ * -> login(), gets user profile after succesfully logged in
+ *
+ * @author George Dimosthenous
+ * 
+ **/
+
 namespace app\controllers;
 use dektrium\user\controllers\SecurityController as BaseSecurityController;
 use dektrium\user\models\LoginForm;
@@ -8,7 +17,6 @@ use app\models\User;
 
 class SecurityController extends BaseSecurityController
 {
-	//public $enableCsrfValidation = false;
     public function actionLogin()
 	{
 		$this->layout = '@app/views/layouts/noheader';
@@ -24,14 +32,6 @@ class SecurityController extends BaseSecurityController
         if ($model->load(Yii::$app->getRequest()->post()) && $model->login()) 
         {   
             $user_id = \Yii::$app->user->identity->id;
-            //$finder = new Finder;
-            //$user = User::findOne($user_id);
-            //$profile = //$finder->findProfileById($user_id);
-            //if($profile !== null)
-            //    $name = is_null($profile->name) || !(trim($profile->name))?\Yii::$app->user->identity->username:$profile->name;
-            //else
-            //   $name = $user->username;//\Yii::$app->user->identity->username;
-
             $profile = Profile::findOne(['user_id' => $user_id]);
             $name = is_null($profile->name) || !(trim($profile->name))?\Yii::$app->user->identity->username:$profile->name;
 

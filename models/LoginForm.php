@@ -1,7 +1,12 @@
 <?php
-/**
-* Overrides the dektrium\user\models\LoginForm model
-**/
+/** 
+ * This model overrides the LoginForm model defined in yii2-user module
+ * methods overrided:
+ * -> rules(),
+ *
+ * @author George Dimosthenous
+ * 
+ **/
 namespace app\models;
 
 use dektrium\user\models\LoginForm as BaseLoginForm;

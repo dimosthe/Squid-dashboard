@@ -15,18 +15,6 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-    /*public $basePath = '@webroot';
-    public $baseUrl = '@web';
-    public $css = [
-        'css/site.css',
-    ];
-    public $js = [
-    ];
-    public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
-    ];*/
-
     public $sourcePath = '@vendor/almasaeed2010/';
     public $css = ['adminlte/dist/css/AdminLTE.min.css', 'adminlte/dist/css/skins/skin-blue.css', 'adminlte/plugins/iCheck/square/blue.css', 'adminlte/plugins/iCheck/square/_all.css', 'adminlte/plugins/iCheck/all.css'];
     public $js = ['adminlte/dist/js/app.js', 'adminlte/plugins/slimScroll/jquery.slimscroll.min.js', 

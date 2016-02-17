@@ -1,7 +1,16 @@
 <?php
-/**
-* Overrides the dektrium\user\models\User model
-**/
+/** 
+ * This model overrides the User model defined in yii2-user module
+ * methods overrided:
+ * -> beforeSave(),
+ * -> scenarios(),
+ * -> rules(),
+ * -> attributeLabels()
+ *
+ * @author George Dimosthenous
+ * 
+ **/
+
 namespace app\models;
 
 use dektrium\user\models\User as BaseUser;

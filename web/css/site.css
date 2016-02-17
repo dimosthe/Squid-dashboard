@@ -144,3 +144,7 @@ img.bg {
 .login-logo{
     color: #250303;
 }
+
+#filteringgroup-users_input_bl label:after{
+    content: '';
+}

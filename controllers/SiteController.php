@@ -29,9 +29,6 @@ class SiteController extends Controller
                         'actions' => ['logout', 'index', 'reloadsquid', 'startsquid', 'stopsquid'],
                         'allow' => true,
                         'roles' => ['@'],
-                        /*'matchCallback' => function () {
-                            return Yii::$app->user->identity->getIsAdmin();
-                        }*/
                     ],
                 ],
             ],

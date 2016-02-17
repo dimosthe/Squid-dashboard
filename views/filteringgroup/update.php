@@ -20,7 +20,6 @@ $this->title = 'Update Filtering Group';
  		<div class="box-header with-border">
     		<?= $this->render('_form', ['model' => $model, 'blists' => $blists, 'users' => $users,'selected_users' => $selected_users,
             'selected_bls' => $selected_bls]) ?>
-
 		</div>
 	</div>
 </section>
